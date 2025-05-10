@@ -1,8 +1,8 @@
 theme = Afterglow
 macos-titlebar-style=transparent
 keybind = cmd+g>r=reload_config
-# background-opacity = 0.9
-# background-blur = true
+background-opacity = 0.8
+background-blur = true
 # custom-shader = ghostty-shaders/dither.glsl
 font-family=JetBrainsMono Nerd Font
 font-size=14

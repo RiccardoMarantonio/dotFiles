@@ -14,3 +14,6 @@ vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
 vim.keymap.set("n", "<leader>fd", function()
   require("utils.cwd").change_cwd_fuzzy()
 end, { desc = "Fuzzy Change Directory" })
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
