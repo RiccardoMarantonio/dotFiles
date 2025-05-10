@@ -10,18 +10,19 @@ function M.setup(user_config)
   config = vim.tbl_deep_extend("force", config, user_config or {})
 end
 
+-- Repeat a character N times
 local function repeat_char(char, count)
   return string.rep(char, count)
 end
 
--- Get comment prefix/suffix for the current file
+-- Get comment prefix/suffix for current filetype
 local function get_comment_wrappers()
   local commentstring = vim.bo.commentstring -- e.g. "// %s", "# %s", "/* %s */"
   local pre, post = commentstring:match("^(.-)%%s(.-)$")
   return vim.trim(pre or ""), vim.trim(post or "")
 end
 
--- Apply comment wrappers to a list of lines
+-- Apply comment syntax to a list of lines
 local function comment_lines(lines)
   local pre, post = get_comment_wrappers()
   for i, line in ipairs(lines) do
@@ -29,6 +30,7 @@ local function comment_lines(lines)
   end
 end
 
+-- Insert box separator
 function M.box_separator()
   vim.ui.input({ prompt = "Enter box text: " }, function(input)
     if not input or input == "" then
@@ -43,10 +45,12 @@ function M.box_separator()
 
     local lines = { border, empty, line, empty, border }
     comment_lines(lines)
+    table.insert(lines, "") -- un-commented blank line
     vim.api.nvim_put(lines, "l", true, true)
   end)
 end
 
+-- Insert single-line separator
 function M.line_separator()
   vim.ui.input({ prompt = "Enter line text: " }, function(input)
     if not input or input == "" then
@@ -59,10 +63,12 @@ function M.line_separator()
 
     local lines = { line }
     comment_lines(lines)
+    table.insert(lines, "") -- un-commented blank line
     vim.api.nvim_put(lines, "l", true, true)
   end)
 end
 
+-- Register user commands
 vim.api.nvim_create_user_command("BoxSeparator", function()
   M.box_separator()
 end, {})
@@ -70,5 +76,9 @@ end, {})
 vim.api.nvim_create_user_command("LineSeparator", function()
   M.line_separator()
 end, {})
+
+-- Set default keymaps
+vim.keymap.set("n", "<leader>z", "<cmd>LineSeparator<CR>", { desc = "Insert line separator" })
+vim.keymap.set("n", "<leader>Z", "<cmd>BoxSeparator<CR>", { desc = "Insert box separator" })
 
 return M
