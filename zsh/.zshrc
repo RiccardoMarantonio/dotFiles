@@ -11,11 +11,18 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval $(thefuck --alias)
 alias nv='nvim'
-# FZF aliases for opening files and directories
+
+# ###############
+# #             #
+# #  FZF STUFF  #
+# #             #
+# ###############
+
 alias fo='fzf | xargs open'  # fzf open
 alias fcd='cd "$(find . -type d | fzf)"'  # fzf cd
 alias fv='nvim $(fzf)'  # fzf vim
 alias fvs='code $(fzf)'  # fzf vscode
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
