@@ -11,7 +11,6 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -160,7 +159,6 @@ function juceinit () {
 
 
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -174,5 +172,46 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(starship init zsh)"
 
 
+export PATH="$HOME/.local/scripts:$PATH"
+bindkey -s ^f "tmux-sessionizer\n"
 
 
+# Track every cd in a file
+
+log_dir() {
+  builtin cd "$@" && {
+    local path="${PWD/#$HOME/~}"
+    echo "$path" >> ~/.dir_history
+  }
+}
+alias cd=log_dir
+
+
+
+
+cdhist() {
+  if [[ ! -f ~/.dir_history ]]; then
+    echo "No directory history found." >&2
+    return 1
+  fi
+
+  local dir
+  dir=$(tail -r ~/.dir_history | awk '!seen[$0]++' | fzf --reverse --prompt="Jump to dir > ")
+  
+  if [[ -n $dir && -d $dir ]]; then
+    cd "$dir"
+  else
+    echo $dir
+    echo "Invalid or no directory selected." >&2
+  fi
+}
+
+# First unbind Zsh line-editor versions (optional but helpful)
+bindkey -r '^l'   # Unbind Ctrl+L
+bindkey -r '^h'   # Unbind Ctrl+H
+bindkey -r '^a'   # Unbind Ctrl+A
+
+# Now rebind your actions
+bindkey -s '^a' 'cdhist\n'
+bindkey -s '^h' 'cd ~\n'
+bindkey -s '^l' 'clear\n'
