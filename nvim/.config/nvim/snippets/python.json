@@ -1,0 +1,17 @@
+{
+  "Print Statement": {
+    "prefix": "pr",
+    "body": [
+      "print(${1:\"Hello, world!\"})"
+    ],
+    "description": "Print statement"
+  },
+  "Main Guard": {
+    "prefix": "main",
+    "body": [
+      "if __name__ == \"__main__\":",
+      "    ${1:main()}"
+    ],
+    "description": "if __name__ == '__main__'"
+  }
+}
