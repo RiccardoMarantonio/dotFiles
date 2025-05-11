@@ -1,6 +1,9 @@
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
+# In ~/.zshrc
+precmd() { print '' }
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=nvim
@@ -23,6 +26,12 @@ alias fcd='cd "$(find . -type d | fzf)"'  # fzf cd
 alias fv='nvim $(fzf)'  # fzf vim
 alias fvs='code $(fzf)'  # fzf vscode
 
+# ######################
+# #                    #
+# #  CUSTOM FUNCTIONS  #
+# #                    #
+# ######################
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -31,9 +40,9 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
 function nvconfig(){
-  cd ~/.config/nvim
-  nv .
+  nv  ~/.config/nvim/
 }
 
 function jmake ()
@@ -58,21 +67,8 @@ function juceinit () {
 
 }
 
-[ -s "/Users/riccardomarantonio/.bun/_bun" ] && source "/Users/riccardomarantonio/.bun/_bun"
-
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-eval "$(starship init zsh)"
-
-export PATH="$HOME/.local/scripts:$PATH"
-bindkey -s ^f "tmux-sessionizer\n"
-
 log_dir() {
-  builtin cd "$@" && {
-    local path="${PWD/#$HOME/~}"
-    echo "$path" >> ~/.dir_history
-  }
+  builtin cd "$@" && pwd >> ~/.dir_history
 }
 alias cd=log_dir
 
@@ -92,13 +88,35 @@ cdhist() {
     echo "Invalid or no directory selected." >&2
   fi
 }
+[ -s "/Users/riccardomarantonio/.bun/_bun" ] && source "/Users/riccardomarantonio/.bun/_bun"
 
-# First unbind Zsh line-editor versions (optional but helpful)
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# eval "$(starship init zsh)"
+
+export PATH="$HOME/.local/scripts:$PATH"
+bindkey -s ^f "tmux-sessionizer\n"
+
+
+# ##############
+# #            #
+# #  KEYBINDS  #
+# #            #
+# ##############
+
 bindkey -r '^l'   # Unbind Ctrl+L
 bindkey -r '^h'   # Unbind Ctrl+H
 bindkey -r '^a'   # Unbind Ctrl+A
 
-# Now rebind your actions
 bindkey -s '^a' 'cdhist\n'
 bindkey -s '^h' 'cd ~\n'
 bindkey -s '^l' 'clear\n'
+
+
+alias ls="eza --tree --level=1  --icons --git"
+
+
+
+
+
