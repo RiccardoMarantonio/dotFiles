@@ -57,8 +57,7 @@ function apr ()
 }
 function fd ()
 {
-  cd ~/Documents/
-  fcd
+  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf)"
 }
 function juceinit () {
     git clone --recursive https://github.com/Marantz01/JuceProjectTemplate .
