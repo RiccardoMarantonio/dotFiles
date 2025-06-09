@@ -15,6 +15,8 @@ local function repeat_char(char, count)
   return string.rep(char, count)
 end
 
+-- ########## hfdtfyuhlgkyjftd ##########
+
 -- Get comment prefix/suffix for current filetype
 local function get_comment_wrappers()
   local commentstring = vim.bo.commentstring -- e.g. "// %s", "# %s", "/* %s */"
@@ -58,7 +60,7 @@ function M.line_separator()
     end
 
     local text = " " .. input .. " "
-    local hashes = repeat_char(config.char, 5)
+    local hashes = repeat_char(config.char, 10)
     local line = hashes .. text .. hashes
 
     local lines = { line }
