@@ -35,25 +35,21 @@ alias fvs='code $(fzf)'  # fzf vscode
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
 }
 
 function nvconfig(){
-  nv  ~/.config/nvim/
+  cd ~/.config/nvim/
+  nv
 }
 
 function jmake ()
 {
    cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=1
    cp build/compile_commands.json .
-}
-function apr ()
-{
-  pkill AudioPluginHost
-  open -a AudioPluginHost
 }
 function fd ()
 {
@@ -66,36 +62,10 @@ function juceinit () {
 
 }
 
-log_dir() {
-  builtin cd "$@" && pwd >> ~/.dir_history
-}
-alias cd=log_dir
-
-cdhist() {
-  if [[ ! -f ~/.dir_history ]]; then
-    echo "No directory history found." >&2
-    return 1
-  fi
-
-  local dir
-  dir=$(tail -r ~/.dir_history | awk '!seen[$0]++' | fzf --reverse --prompt="Jump to dir > ")
-  
-  if [[ -n $dir && -d $dir ]]; then
-    cd "$dir"
-  else
-    echo $dir
-    echo "Invalid or no directory selected." >&2
-  fi
-}
 [ -s "/Users/riccardomarantonio/.bun/_bun" ] && source "/Users/riccardomarantonio/.bun/_bun"
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# eval "$(starship init zsh)"
-
-export PATH="$HOME/.local/scripts:$PATH"
-bindkey -s ^f "tmux-sessionizer\n"
 
 
 # ##############
@@ -104,18 +74,8 @@ bindkey -s ^f "tmux-sessionizer\n"
 # #            #
 # ##############
 
-bindkey -r '^l'   # Unbind Ctrl+L
-bindkey -r '^h'   # Unbind Ctrl+H
-bindkey -r '^a'   # Unbind Ctrl+A
 
-bindkey -s '^a' 'cdhist\n'
-bindkey -s '^h' 'cd ~\n'
-bindkey -s '^l' 'clear\n'
-
-
-alias ls="eza --tree --level=1  --icons --git"
-
-
+alias ls="eza --tree --level=0  --icons --git"
 
 
 
