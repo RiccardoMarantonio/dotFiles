@@ -75,7 +75,12 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # ##############
 
 
-alias ls="eza --tree --level=0  --icons --git"
+alias ls="eza --show-symlinks -a --tree --level=0  --icons --git"
 
 
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
+# End of LM Studio CLI section
 

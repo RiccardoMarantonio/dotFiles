@@ -1,4 +1,5 @@
 tt.*
+.opencode/
 .tests
 doc/tags
 debug

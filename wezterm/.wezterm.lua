@@ -2,32 +2,78 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.font_size = 15
--- config.color_scheme = "Afterglow"
--- config.color_scheme = "Catppuccin Mocha"
-config.color_scheme = "Dracula"
--- config.color_scheme = "GitHub Dark"
+config.font_size = 17
+config.color_scheme = "Gruvbox Material (Gogh)"
+config.window_background_opacity = 0.30
+config.macos_window_background_blur = 20
 
 config.font = wezterm.font("JetBrains Mono")
 
-config.window_decorations = "NONE | RESIZE"
+config.window_decorations = "RESIZE"
 
-config.enable_tab_bar = false
-config.tab_bar_at_bottom = true
+config.window_frame = {
+	active_titlebar_bg = "#1e1e2e",
+	inactive_titlebar_bg = "#1e1e2e",
+}
 
 local act = wezterm.action
 
--- config.window_background_opacity = 0.70
--- config.macos_window_background_blur = 20
+config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = false
+config.tab_max_width = 24
+config.colors = {
+	tab_bar = {
+		background = "#282828", -- dark bar background (Warp-like)
+
+		active_tab = {
+			bg_color = "#363532",
+			fg_color = "#D9CAA4",
+			intensity = "Bold",
+			underline = "None",
+			italic = false,
+			strikethrough = false,
+		},
+
+		inactive_tab = {
+			bg_color = "#2E2D2C",
+			fg_color = "#9F967C",
+		},
+
+		inactive_tab_hover = {
+			bg_color = "#363532",
+			fg_color = "#9F967C",
+			italic = true,
+		},
+
+		new_tab = {
+			bg_color = "#282828",
+			fg_color = "#D9CAA4",
+		},
+
+		new_tab_hover = {
+			bg_color = "#363532",
+			fg_color = "#cdd6f4",
+		},
+	},
+}
 
 config.keys = {
 	{
-		key = "|",
-		mods = "SUPER|SHIFT",
+		key = "y",
+		mods = "CMD",
+		action = wezterm.action.Multiple({
+			wezterm.action.CopyTo("ClipboardAndPrimarySelection"),
+			wezterm.action.ClearSelection,
+			wezterm.action.SendKey({ key = "Escape" }),
+		}),
+	},
+	{
+		key = "d",
+		mods = "SUPER",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = '"',
+		key = "D",
 		mods = "SUPER|SHIFT",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
@@ -42,7 +88,6 @@ config.keys = {
 		action = wezterm.action.CloseCurrentTab({ confirm = false }),
 	},
 	{ key = "w", mods = "CTRL", action = act.PaneSelect },
-	-- Pane navigation (like `Ctrl-b h/j/k/l`)
 	{ key = "h", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Left") },
 	{ key = "l", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Right") },
 	{ key = "k", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Up") },
