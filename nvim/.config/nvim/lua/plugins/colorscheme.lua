@@ -23,7 +23,7 @@ return {
     vim.api.nvim_set_hl(0, "CmpSelection", { bg = "#458588", fg = "#ffffff" })
     -- vim.api.nvim_set_hl(0, "@type", { fg = "#d79921" })
     -- vim.api.nvim_set_hl(0, "@type.definition", { fg = "#d79921" })
-    -- vim.api.nvim_set_hl(0, "@keyword", { fg = "#83a598", italic = true })
+    vim.api.nvim_set_hl(0, "@keyword", { fg = "#83a598", italic = true })
     vim.cmd([[
       hi Normal guibg=NONE ctermbg=NONE
       hi NormalNC guibg=NONE ctermbg=NONE

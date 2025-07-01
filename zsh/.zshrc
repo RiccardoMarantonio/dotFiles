@@ -76,7 +76,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 alias ls="eza --show-symlinks -a --tree --level=0  --icons --git"
-
+alias clearnvimswap="rm -rf ~/.local/state/nvim/swap"
+alias clearnvimcache="rm -rf ~/.local/state/nvim"
+alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 
 
 
