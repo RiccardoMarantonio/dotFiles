@@ -25,7 +25,7 @@ fi
 
 cd "$project_dir" || exit 1
 
-# CONTROLLA SE ESISTE UNA SESSIONE ZELLIJ CON IL NOME DELLA DIRECTORY
+# CHECK IF A SESSION WITH THE NAME OF THE DIRECTORY ALREADY EXISTS
 
 check_session=$(zellij list-sessions | grep "$(basename "$project_dir")")
 if [[ -n "$check_session" ]]; then
@@ -35,7 +35,7 @@ if [[ -n "$check_session" ]]; then
   exit 0
 fi
 
-# SE NON ESISTE CREA UNA NUOVA SESSIONE CON IL NOME DELLA DIRECTORY
+# CREATE A NEW SESSION WITH THE NAME OF THE DIRECTORY
 
 echo "Creating new session for: $(basename "$project_dir")"
 session_name=$(basename "$project_dir")
