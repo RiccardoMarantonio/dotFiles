@@ -55,11 +55,38 @@ function fd ()
 {
   cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università ~/dotFiles -mindepth 1 -type d | fzf)"
 }
+
+function fw() {
+  # Pick a project directory
+  selected_dir=$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università ~/dotFiles -mindepth 1 -type d | fzf)
+
+  if [[ -z "$selected_dir" ]]; then
+    echo "No directory selected. Exiting."
+    return 1
+  fi
+
+  # Create new session config
+  sed -e "s|/Users/riccardomarantonio|$selected_dir|" \
+      -e "s|default|BANANAA|" \
+      "$HOME/.warp/launch_configurations/default.yaml" \
+      > "$HOME/.warp/launch_configurations/session.yaml"
+
+  # Launch new Warp session in background after a short delay
+  (sleep 1 && open -a "Warp" --args --launch-config "$HOME/.warp/launch_configurations/session.yaml") &
+
+  # Quit current Warp app (including this window)
+  osascript -e 'tell application "Warp" to quit'
+}
 function juceinit () {
     git clone --recursive https://github.com/Marantz01/JuceProjectTemplate .
     rm -rf .git readme.md
     git init
 
+}
+function zl() {
+  zellij --layout ~/.config/zellij/layouts/session.kdl
+  zellij action go-to-previous-tab
+  zellij action close-tab
 }
 
 [ -s "/Users/riccardomarantonio/.bun/_bun" ] && source "/Users/riccardomarantonio/.bun/_bun"
@@ -80,9 +107,14 @@ alias clearnvimswap="rm -rf ~/.local/state/nvim/swap"
 alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 
+function type_zellij_sessionizer_command() {
+  LBUFFER="~/.scripts/zellij-sessionizer.sh"
+  zle accept-line
+}
+zle -N type_zellij_sessionizer_command
+bindkey '^f' type_zellij_sessionizer_command
 
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
 # End of LM Studio CLI section
-

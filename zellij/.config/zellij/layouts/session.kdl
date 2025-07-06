@@ -1,0 +1,29 @@
+layout {
+    tab name="NVIM" {
+      pane command="nvim"                                 
+      pane size=1 borderless=true {
+        plugin location="compact-bar"
+      }
+    }
+    tab name="TERMINAL" {
+        pane split_direction="vertical"{
+          pane split_direction="horizontal" {
+            pane command="yazi" name="yazi"
+            pane command="lazygit" name="lazygit"
+          }                             
+          pane name="terminal" focus=true
+        }
+        pane size=1 borderless=true {
+          plugin location="compact-bar"
+        }
+    }
+    tab name="LRP" {
+      pane split_direction="vertical" {
+        pane
+        pane
+      } 
+      pane size=1 borderless=true {
+        plugin location="compact-bar"
+      }
+    }
+}

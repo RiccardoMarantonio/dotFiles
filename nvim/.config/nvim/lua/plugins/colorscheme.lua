@@ -6,7 +6,7 @@ return {
     config = function()
       -- Load the colorscheme
       vim.g.gruvbox_material_enable_italic = true
-      vim.cmd.colorscheme("gruvbox-material")
+      -- vim.cmd.colorscheme("gruvbox-material")
       -- Diagnostic text (virtual text shown at EOL)
       vim.api.nvim_set_hl(
         0,
@@ -44,7 +44,7 @@ return {
         transparent_background = true, -- Enable transparency
         integrations = {},
       })
-      -- vim.cmd.colorscheme("catppuccin-mocha") -- Or any other Catppuccin flavor
+      vim.cmd.colorscheme("catppuccin-mocha") -- Or any other Catppuccin flavor
       vim.cmd([[
       hi Normal guibg=NONE ctermbg=NONE
       hi NormalNC guibg=NONE ctermbg=NONE
