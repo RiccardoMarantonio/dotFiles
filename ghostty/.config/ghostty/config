@@ -6,6 +6,6 @@ keybind = cmd+g>r=reload_config
 # custom-shader = ghostty-shaders/dither.glsl
 font-family=JetBrainsMono Nerd Font
 font-size=14
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
 
 cursor-style = block

@@ -53,7 +53,7 @@ function jmake ()
 }
 function fd ()
 {
-  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf)"
+  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università ~/dotFiles -mindepth 1 -type d | fzf)"
 }
 function juceinit () {
     git clone --recursive https://github.com/Marantz01/JuceProjectTemplate .
