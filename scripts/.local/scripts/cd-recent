@@ -1,0 +1,11 @@
+
+#!/usr/bin/env bash
+
+# Collect directory history from dirs command
+history_dirs=$(dirs -v | awk '{print $2}' | uniq)
+
+selected=$(echo "$history_dirs" | fzf --reverse --prompt="Recent shell dirs > ")
+
+if [[ -n $selected ]]; then
+  cd "$selected"
+fi

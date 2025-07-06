@@ -108,7 +108,7 @@ alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 
 function type_zellij_sessionizer_command() {
-  LBUFFER="~/.scripts/zellij-sessionizer.sh"
+  LBUFFER="~/.local/scripts/zellij-sessionizer.sh"
   zle accept-line
 }
 zle -N type_zellij_sessionizer_command
