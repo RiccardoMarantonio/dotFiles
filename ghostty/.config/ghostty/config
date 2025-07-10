@@ -3,7 +3,8 @@ macos-titlebar-style=transparent
 keybind = cmd+g>r=reload_config
 # background-opacity = 0.8
 # background-blur = true
-# custom-shader = ghostty-shaders/dither.glsl
+custom-shader = ghostty-shaders/cursor_smear.glsl
+custom-shader = ghostty-shaders/cursor_blaze_no_trail.glsl
 font-family=JetBrainsMono Nerd Font
 font-size=14
 # macos-titlebar-style = hidden

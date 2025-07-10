@@ -106,6 +106,7 @@ alias ls="eza --show-symlinks -a --tree --level=0  --icons --git"
 alias clearnvimswap="rm -rf ~/.local/state/nvim/swap"
 alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
+alias z="zellij"
 
 function type_zellij_sessionizer_command() {
   LBUFFER="~/.local/scripts/zellij-sessionizer.sh"
@@ -113,6 +114,11 @@ function type_zellij_sessionizer_command() {
 }
 zle -N type_zellij_sessionizer_command
 bindkey '^f' type_zellij_sessionizer_command
+
+
+
+#Use control shft z to open zellij sessionizer
+
 
 
 # Added by LM Studio CLI (lms)

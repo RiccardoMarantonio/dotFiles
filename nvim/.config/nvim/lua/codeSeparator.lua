@@ -15,8 +15,6 @@ local function repeat_char(char, count)
   return string.rep(char, count)
 end
 
--- ########## hfdtfyuhlgkyjftd ##########
-
 -- Get comment prefix/suffix for current filetype
 local function get_comment_wrappers()
   local commentstring = vim.bo.commentstring -- e.g. "// %s", "# %s", "/* %s */"
