@@ -67,8 +67,8 @@ keybinds clear-defaults=true {
         bind "Ctrl g" { SwitchToMode "locked"; }
         bind "Ctrl q" { Detach; }
         bind "Ctrl w" { CloseFocus; SwitchToMode "normal"; }
-        bind "Ctrl d" { NewPane "right"; SwitchToMode "normal"; }
-        bind "Ctrl D" { NewPane "down"; SwitchToMode "normal"; }
+        bind "Ctrl x" { NewPane "right"; SwitchToMode "normal"; }
+        bind "Ctrl X" { NewPane "down"; SwitchToMode "normal"; }
         bind "Ctrl [" { GoToPreviousTab; SwitchToMode "normal"; }
         bind "Ctrl ]" { GoToNextTab; SwitchToMode "normal"; }
         bind "Ctrl Shift ]" { FocusNextPane; SwitchToMode "normal"; }
