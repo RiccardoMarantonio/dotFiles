@@ -1,27 +1,167 @@
--- Set border of some LazyVim plugins to rounded
-
 return {
+
+  -- #################
+  -- #               #
+  -- #  COLORSCHEME  #
+  -- #               #
+  -- #################
+
   {
-    "saghen/blink.cmp",
-    opts = {
-      completion = {
-        menu = {
-          border = "rounded",
-          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
-        },
-        documentation = {
-          window = {
-            border = "rounded",
+    "catppuccin/nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        transparent_background = true,
+        integrations = {},
+      })
+
+      vim.cmd.colorscheme("catppuccin-mocha")
+
+      vim.cmd([[
+      hi Normal guibg=NONE ctermbg=NONE
+      hi NormalNC guibg=NONE ctermbg=NONE
+      hi NormalFloat guibg=NONE ctermbg=NONE
+      hi FloatBorder guibg=NONE ctermbg=NONE
+      hi CursorLine guibg=NONE ctermbg=NONE
+      hi EndOfBuffer guibg=NONE ctermbg=NONE
+    ]])
+    end,
+  },
+
+  -- #############
+  -- #           #
+  -- #  LUALINE  #
+  -- #           #
+  -- #############
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          icons_enabled = true,
+          theme = "auto",
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+          },
+          ignore_focus = {},
+          always_divide_middle = true,
+          always_show_tabline = true,
+          globalstatus = false,
+          refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+            refresh_time = 16, -- ~60fps
+            events = {
+              "WinEnter",
+              "BufEnter",
+              "BufWritePost",
+              "SessionLoadPost",
+              "FileChangedShellPost",
+              "VimResized",
+              "Filetype",
+              "CursorMoved",
+              "CursorMovedI",
+              "ModeChanged",
+            },
           },
         },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "filename" },
+          lualine_c = { "diagnostics" },
+          lualine_x = { "filetype" },
+          lualine_y = { "progress" },
+        },
+      })
+    end,
+  },
+
+  -- ######################
+  -- #                    #
+  -- #  CMD LINE - NOICE  #
+  -- #                    #
+  -- ######################
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
+          },
+          view = "mini",
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
       },
     },
+    config = function(_, opts)
+      -- HACK: noice shows messages from before it was enabled,
+      -- but this is not ideal when Lazy is installing plugins,
+      -- so clear the messages in this case.
+      if vim.o.filetype == "lazy" then
+        vim.cmd([[messages clear]])
+      end
+      require("noice").setup(opts)
+    end,
   },
-  -- lazyvim.plugins.coding
+
+  -- ###############
+  -- #             #
+  -- #  DASHBOARD  #
+  -- #             #
+  -- ###############
+
   {
-    "noice.nvim",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
-      presets = { lsp_doc_border = true },
+      dashboard = {
+        preset = {
+          header = [[
+    __  __     ____         _       __           __    __                  
+   / / / /__  / / /___     | |     / /___  _____/ /___/ /                  
+  / /_/ / _ \/ / / __ \    | | /| / / __ \/ ___/ / __  /                   
+ / __  /  __/ / / /_/ /    | |/ |/ / /_/ / /  / / /_/ /                    
+/_/_/_/\___/_/_/\____/   __|__/|__/\____/_/  /_/\__,_( )        _          
+  / ____/___  ____  ____/ / /_  __  _____     / /_  _|/______ _(_)___      
+ / / __/ __ \/ __ \/ __  / __ \/ / / / _ \   / __ \/ ___/ __ `/ / __ \     
+/ /_/ / /_/ / /_/ / /_/ / /_/ / /_/ /  __/  / /_/ / /  / /_/ / / / / / _ _ 
+\____/\____/\____/\__,_/_.___/\__, /\___/  /_.___/_/   \__,_/_/_/ /_(_|_|_)
+                             /____/                                        
+                                                                                                              ]],
+        },
+        sections = {
+          { section = "header" },
+        },
+        enabled = true,
+      },
     },
   },
 }

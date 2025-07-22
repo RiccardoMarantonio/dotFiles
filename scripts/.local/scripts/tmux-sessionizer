@@ -1,53 +1,26 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then
-  selected=$1
-else
-  selected=$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf)
-fi
+
+selected=$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf --prompt="Select a directory to open in tmux: ")
 
 if [[ -z $selected ]]; then
+    echo "No directory selected."
   exit 0
 fi
 
 selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  tmux new-session -s $selected_name -c $selected
+
+if [[ -z $TMUX ]] ; then
+  tmux new-session -A -s "$selected_name" -c "$selected"
   exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2>/dev/null; then
-  tmux new-session -ds $selected_name -c $selected
+# Check if the session already exists
+
+if ! tmux has-session -t "$selected_name" 2>/dev/null; then
+  echo "Creating new session: $selected_name"
+  tmux new-session -ds "$selected_name" -c "$selected" 
 fi
+tmux switch-client -t "$selected_name"
 
-tmux switch-client -t $selected_name
-
-# if [[ $# -eq 1 ]]; then
-#   selected=$1
-# else
-#   selected=$(find ~/Documents/Coding ~/Documents/Università -mindepth 1 -type d | fzf)
-# fi
-#
-# if [[ -z $selected ]]; then
-#   exit 0
-# fi
-#
-# selected_name=$(basename "$selected" | tr . _)
-# tmux_running=$(pgrep tmux)
-#
-# # Function to attach or create session and start nvim
-# start_tmux_with_nvim() {
-#   if ! tmux has-session -t="$selected_name" 2>/dev/null; then
-#     tmux new-session -ds "$selected_name" -c "$selected" "nvim"
-#   fi
-#   tmux switch-client -t "$selected_name"
-# }
-#
-# if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-#   tmux new-session -s "$selected_name" -c "$selected" "nvim"
-#   exit 0
-# fi
-#
-# start_tmux_with_nvim
