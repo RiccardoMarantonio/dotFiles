@@ -21,9 +21,23 @@ return {
         "codelldb",
         "stylua",
         "clang-format",
+        "prettier",
+        "tsserver",
       },
     },
     config = function()
+      -- Configure diagnostics UI
+      vim.diagnostic.config({
+        virtual_text = true,
+        underline = true,
+        float = { border = "rounded" }, -- <- Add this for diagnostic float borders
+      })
+
+      -- Apply rounded borders to hover and signature help
+      -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+      -- vim.lsp.handlers["textDocument/signatureHelp"] =
+      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
       vim.diagnostic.config({
         virtual_text = true,
         underline = true,

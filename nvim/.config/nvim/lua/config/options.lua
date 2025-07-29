@@ -113,3 +113,43 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Smart autoindenting when starting a new line
+
+-- Override LSP handlers to use rounded borders
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+vim.diagnostic.config({
+  float = { border = "rounded" },
+})
+
+vim.cmd.colorscheme("tokyonight")
+
+-- vim.cmd([[
+--   hi Normal         guibg=NONE ctermbg=NONE
+--   hi NormalNC       guibg=NONE ctermbg=NONE
+--   hi NormalFloat    guibg=NONE ctermbg=NONE
+--   hi FloatBorder    guibg=NONE ctermbg=NONE
+--   hi CursorLine     guibg=NONE ctermbg=NONE
+--   hi EndOfBuffer    guibg=NONE ctermbg=NONE
+--   hi SignColumn     guibg=NONE ctermbg=NONE
+--
+--   " CMP-specific
+--   hi Pmenu          guibg=NONE ctermbg=NONE
+--   hi PmenuSel       guibg=NONE ctermbg=NONE
+--   hi PmenuSbar      guibg=NONE ctermbg=NONE
+--   hi PmenuThumb     guibg=NONE ctermbg=NONE
+--
+--   " Noice-specific
+--   hi NoiceCmdlinePopupBorder guibg=NONE
+--   hi NoiceCmdlinePopup       guibg=NONE
+--   hi NoicePopupBorder        guibg=NONE
+--   hi NoicePopup              guibg=NONE
+--
+--   " Telescope/snacks or general picker fix
+--   hi TelescopeNormal     guibg=NONE
+--   hi TelescopeBorder     guibg=NONE
+--   hi TelescopePrompt     guibg=NONE
+--   hi TelescopePromptBorder guibg=NONE
+--   hi TelescopePromptTitle  guibg=NONE
+--   hi TelescopePreviewTitle guibg=NONE
+-- ]])

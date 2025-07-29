@@ -11,3 +11,4 @@ font-size=14
 
 cursor-style = block
 
+# command="tmux"

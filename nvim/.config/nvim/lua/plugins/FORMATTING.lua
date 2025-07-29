@@ -11,6 +11,13 @@ return {
         cpp = { "clang_format" },
         h = { "clang_format" },
         go = { "gofmt" },
+        typescript = { "prettier" },
+        javascript = { "prettier" },
+        json = { "prettier" },
+        html = { "prettier" },
+        css = { "prettier" },
+        markdown = { "prettier" },
+        yaml = { "prettier" },
       },
     })
     vim.api.nvim_create_autocmd("BufWritePre", {

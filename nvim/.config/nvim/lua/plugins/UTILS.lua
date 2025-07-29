@@ -83,4 +83,58 @@ return {
       require("mini.ai").setup({})
     end,
   },
+
+  -- #############
+  -- #           #
+  -- #  LAZYGIT  #
+  -- #           #
+  -- #############
+
+  -- nvim v0.8.0
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
+  },
+
+  -- ##########
+  -- #        #
+  -- #  YAZI  #
+  -- #        #
+  -- ##########
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
+    keys = {
+      {
+        "<leader>y",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>Y",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
+      },
+    },
+  },
 }

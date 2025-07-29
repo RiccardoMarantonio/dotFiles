@@ -3,6 +3,7 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    indent = { enabled = true },
     explorer = { enabled = true },
     picker = { enabled = true },
     notifier = { enabled = true },
@@ -35,13 +36,6 @@ return {
         Snacks.picker.commands()
       end,
       desc = "Commands",
-    },
-    {
-      "<leader>sk",
-      function()
-        Snacks.picker.keymaps()
-      end,
-      desc = "Keymaps",
     },
     {
       "<leader>g",
@@ -89,6 +83,13 @@ return {
         Snacks.picker.recent()
       end,
       desc = "Recent",
+    },
+    {
+      "<leader>sd",
+      function()
+        Snacks.picker.diagnostics()
+      end,
+      desc = "Diagnostics",
     },
   },
 }

@@ -35,7 +35,7 @@ function nvconfig(){
 
 function fd ()
 {
-  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università ~/dotFiles -mindepth 1 -type d | fzf)"
+  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf)"
 }
 
 function juceinit () {
@@ -60,4 +60,12 @@ alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/b
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
 alias t="tmux new-session -A -s main"
 bindkey -s ^f "~/.local/scripts/tmux-sessionizer\n"
+bindkey -s ^g "lazygit\n"
 # eval "$(starship init zsh)"
+
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
+# End of LM Studio CLI section
+

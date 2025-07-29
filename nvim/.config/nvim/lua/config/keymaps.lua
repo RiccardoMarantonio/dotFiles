@@ -24,6 +24,26 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "<leader>r", ":%s/")
 vim.keymap.set("v", "<leader>r", ":s/")
+vim.keymap.set("n", "]q", "<cmd>cn<CR>", { desc = "Next Item in quickfix List" })
+vim.keymap.set("n", "[q", "<cmd>cp<CR>", { desc = "Previous Item in quickfix List" })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>qe",
+  ":lua vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })<CR>:copen<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>qw",
+  ":lua vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })<CR>:copen<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>ce",
+  ":lua vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR, bufnr=0 })<CR>:copen<CR>",
+  { noremap = true, silent = true }
+)
 
 -- #########################
 -- #                       #
@@ -44,6 +64,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
+    vim.keymap.set(
+      "n",
+      "<leader>cd",
+      vim.diagnostic.open_float,
+      vim.tbl_extend("force", opts, { desc = "Open Diagnostics Float" })
+    )
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
 
     vim.keymap.set("n", "]d", function()
       vim.diagnostic.jump({ forward = true, count = 1 })

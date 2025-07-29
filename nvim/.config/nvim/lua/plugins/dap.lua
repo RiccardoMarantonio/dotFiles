@@ -27,7 +27,7 @@ return {
       type = "server",
       port = "${port}",
       executable = {
-        command = "/Users/riccardomarantonio/.local/share/nvim-dev/nvim/mason/packages/codelldb/codelldb",
+        command = "/Users/riccardomarantonio/.local/share/nvim/mason/packages/codelldb/codelldb",
         args = { "--port", "${port}" },
       },
       options = {
