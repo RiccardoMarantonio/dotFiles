@@ -63,14 +63,14 @@ return {
     dap.configurations.c = dap.configurations.cpp
     dap.adapters.c = dap.adapters.codelldb
     vim.fn.sign_define("DapBreakpoint", {
-      text = "● ", -- Or use something like "🔴" or "●"
-      texthl = "DiagnosticSignError", -- You can define your own highlight group
+      text = "● ",
+      texthl = "DiagnosticSignError",
       linehl = "",
       numhl = "",
     })
 
     vim.fn.sign_define("DapStopped", {
-      text = "➡️", -- Symbol for when execution is paused here
+      text = "➲",
       texthl = "DiagnosticSignInfo",
       linehl = "CursorLine",
       numhl = "",

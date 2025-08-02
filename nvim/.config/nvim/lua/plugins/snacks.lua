@@ -17,6 +17,13 @@ return {
       desc = "File Explorer",
     },
     {
+      "<leader>fs",
+      function()
+        Snacks.picker.lsp_symbols()
+      end,
+      desc = "LSP Symbols",
+    },
+    {
       "<leader>n",
       function()
         Snacks.picker.notifications()

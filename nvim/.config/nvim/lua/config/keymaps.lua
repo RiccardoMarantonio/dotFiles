@@ -60,28 +60,52 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- ########## Keymaps ##########
 
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
-    vim.keymap.set(
-      "n",
-      "<leader>cd",
-      vim.diagnostic.open_float,
-      vim.tbl_extend("force", opts, { desc = "Open Diagnostics Float" })
-    )
-    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
 
     vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump({ forward = true, count = 1 })
-    end, vim.tbl_extend("force", opts, { desc = "Next Diagnostic" }))
+      vim.diagnostic.jump({
+        count = 1,
+        float = true,
+        severity = vim.diagnostic.severity.ERROR,
+      })
+    end, opts)
 
     vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump({ forward = false, count = 1 })
-    end, vim.tbl_extend("force", opts, { desc = "Previous Diagnostic" }))
+      vim.diagnostic.jump({
+        count = -1,
+        float = true,
+        severity = vim.diagnostic.severity.ERROR,
+      })
+    end, opts)
 
     vim.keymap.set("n", "<leader>cf", function()
       require("conform").format({ async = true })
-    end, vim.tbl_extend("force", opts, { desc = "Format with Conform" }))
+    end, opts)
   end,
 })
+local isLspWarningVisible = true
+vim.keymap.set("n", "<leader>lx", function()
+  isLspWarningVisible = not isLspWarningVisible
+  if isLspWarningVisible then
+    vim.diagnostic.config({
+      virtual_text = {
+        severity = { min = vim.diagnostic.severity.INFO },
+      },
+      underline = true,
+      float = { border = "rounded" },
+    })
+  else
+    vim.diagnostic.config({
+      virtual_text = {
+        severity = { min = vim.diagnostic.severity.ERROR },
+      },
+      underline = true,
+      float = { border = "rounded" },
+    })
+  end
+end)
