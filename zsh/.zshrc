@@ -35,7 +35,7 @@ function nvconfig(){
 
 function fd ()
 {
-  cd "$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf)"
+  cd "$({find ~/.config -maxdepth 1 -type d -o -type l; find ~/Projects -maxdepth 2 -type d } | fzf)"
 }
 
 function juceinit () {
@@ -59,6 +59,7 @@ alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
 alias t="tmux new-session -A -s main"
+# alis stowdirectory="stow --target=$HOME --dotfiles"
 bindkey -s ^f "~/.local/scripts/tmux-sessionizer\n"
 bindkey -s ^g "lazygit\n"
 # eval "$(starship init zsh)"

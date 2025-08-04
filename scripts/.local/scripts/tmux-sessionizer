@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
 
-selected=$(find ~/Documents/Coding ~/.config ~/.local ~/Documents/Università -mindepth 1 -type d | fzf --prompt="Select a directory to open in tmux: ")
-
+selected=$(
+  {
+    find ~/.config -maxdepth 1 \( -type d -o -type l \);
+    find ~/Projects -maxdepth 2 -type d
+  } | fzf
+)
 if [[ -z $selected ]]; then
     echo "No directory selected."
   exit 0
