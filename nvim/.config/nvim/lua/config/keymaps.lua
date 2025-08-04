@@ -88,6 +88,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts)
   end,
 })
+
+-- ########## TOGGLE WARNINGS ##########
+
 local isLspWarningVisible = true
 vim.keymap.set("n", "<leader>lx", function()
   isLspWarningVisible = not isLspWarningVisible
