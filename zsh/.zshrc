@@ -45,6 +45,15 @@ function juceinit () {
 
 }
 
+function tmuxSessionizer() {
+  if [ -z "$TMUX" ]; then
+      echo "Not in a tmux session."
+      t
+  else
+    tmux display-popup -E -w 60% -h 30% "~/.local/scripts/tmux-sessionizer"
+  fi
+}
+
 
 # ##############
 # #            #
@@ -60,7 +69,7 @@ alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/b
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
 alias t="tmux new-session -A -s main"
 # alis stowdirectory="stow --target=$HOME --dotfiles"
-bindkey -s ^f "~/.local/scripts/tmux-sessionizer\n"
+bindkey -s ^f "tmuxSessionizer\n"
 bindkey -s ^g "lazygit\n"
 # eval "$(starship init zsh)"
 
@@ -69,4 +78,16 @@ bindkey -s ^g "lazygit\n"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
 # End of LM Studio CLI section
+
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+function tmuxInit(){
+  if [ -z "$TMUX" ]; then
+      t
+  else
+  fi
+}
+
+eval "tmuxInit"
+
 

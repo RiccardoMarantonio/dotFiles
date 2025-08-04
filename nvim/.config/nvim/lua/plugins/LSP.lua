@@ -32,6 +32,10 @@ return {
           "pylsp",
           "gopls",
           "clangd",
+          "ts_ls",
+          "html",
+          "cssls",
+          "jsonls",
         },
       })
     end,

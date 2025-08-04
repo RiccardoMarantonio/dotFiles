@@ -112,3 +112,13 @@ vim.keymap.set("n", "<leader>lx", function()
     })
   end
 end)
+
+local maxContrast = false
+vim.keymap.set("n", "<leader>mc", function()
+  maxContrast = not maxContrast
+  if maxContrast then
+    vim.cmd.colorscheme("kanagawa")
+  else
+    vim.cmd.colorscheme("kanagawa-dragon")
+  end
+end)

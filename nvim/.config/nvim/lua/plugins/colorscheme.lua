@@ -37,7 +37,7 @@ return {
                 --   preproc = "#C586C0", -- VSCode purple for preprocessor
                 --   type = "#4EC9B0", -- VSCode teal for types
                 --   regex = "#D16969", -- VSCode red for regex
-                --   deprecated = "#808080", -- VSCode gray for deprecated
+                --   deprecated = "#808080", -- VSCode gray for deprecate
                 --   comment = "#6A9955", -- VSCode green for comments
                 --   punct = "#D4D4D4", -- VSCode white/gray for punctuation
                 --   special1 = "#569CD6", -- VSCode blue
@@ -257,10 +257,10 @@ return {
       })
 
       -- Apply the colorscheme
-      vim.cmd([[colorscheme tokyonight]])
+      -- vim.cmd([[colorscheme tokyonight]])
 
       -- Additional VS Code-like settings
-      vim.opt.background = "dark"
+      -- vim.opt.background = "dark"
       vim.opt.termguicolors = true
     end,
   },

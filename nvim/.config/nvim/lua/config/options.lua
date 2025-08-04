@@ -27,7 +27,6 @@ vim.o.splitbelow = true
 
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
 vim.o.inccommand = "split"
 
 vim.o.cursorline = true
@@ -47,6 +46,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.hl.on_yank()
   end,
 })
+
 vim.opt.winborder = "rounded"
 vim.opt.wrap = false
 vim.opt.foldmethod = "indent"
