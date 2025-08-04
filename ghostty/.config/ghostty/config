@@ -1,4 +1,5 @@
-theme = Afterglow
+theme = Kanagawa Dragon
+# theme = Afterglow
 macos-titlebar-style=transparent
 keybind = cmd+g>r=reload_config
 # background-opacity = 0.8
