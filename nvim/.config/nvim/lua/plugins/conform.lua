@@ -18,6 +18,7 @@ return {
         css = { "prettier" },
         markdown = { "prettier" },
         yaml = { "prettier" },
+        sh = { "shfmt" },
       },
     })
     vim.api.nvim_create_autocmd("BufWritePre", {

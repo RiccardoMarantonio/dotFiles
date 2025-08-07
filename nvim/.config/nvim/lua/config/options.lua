@@ -49,15 +49,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.opt.winborder = "rounded"
 vim.opt.wrap = false
-vim.opt.foldmethod = "indent"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99
-vim.opt.foldenable = true
-vim.opt.foldtext = "v:lua.CustomFoldText()"
-vim.g.lazyvim_prettier_needs_config = false
-function _G.CustomFoldText()
-  return "."
-end
 
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent

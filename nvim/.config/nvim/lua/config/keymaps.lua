@@ -22,8 +22,6 @@ vim.keymap.set("n", "H", "<cmd>bp<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
-vim.keymap.set("n", "<leader>r", ":%s/")
-vim.keymap.set("v", "<leader>r", ":s/")
 vim.keymap.set("n", "]q", "<cmd>cn<CR>", { desc = "Next Item in quickfix List" })
 vim.keymap.set("n", "[q", "<cmd>cp<CR>", { desc = "Previous Item in quickfix List" })
 vim.api.nvim_set_keymap(
