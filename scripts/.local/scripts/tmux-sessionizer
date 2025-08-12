@@ -1,31 +1,28 @@
 #!/usr/bin/env bash
 
-
 selected=$(
-  {
-      tmux list-sessions -F '#{session_name}' | sed 's/^/[TMUX]/';
-    find ~/.config -maxdepth 1 \( -type d -o -type l \);
-    find ~/Projects -maxdepth 2 -type d;
-  } | fzf --prompt "Select a TMUX session or directory:"
+    {
+        tmux list-sessions -F '#{session_name}' | sed 's/^/[TMUX]\//'
+        find ~/.config -maxdepth 1 \( -type d -o -type l \)
+        find ~/Projects -maxdepth 2 -type d
+    } | fzf --prompt "Select a TMUX session or directory:"
 )
 if [[ -z $selected ]]; then
     echo "No directory selected."
-  exit 0
+    exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _ | sed 's/\[TMUX\]//')
+selected_name=$(basename "$selected" | tr . _ | sed 's/\[TMUX\]\///')
 
-
-if [[ -z $TMUX ]] ; then
-  tmux new-session -A -s "$selected_name" -c "$selected"
-  exit 0
+if [[ -z $TMUX ]]; then
+    tmux new-session -A -s "$selected_name" -c "$selected"
+    exit 0
 fi
 
 # Check if the session already exists
 
 if ! tmux has-session -t "$selected_name" 2>/dev/null; then
-  echo "Creating new session: $selected_name"
-  tmux new-session -ds "$selected_name" -c "$selected" 
+    echo "Creating new session: $selected_name"
+    tmux new-session -ds "$selected_name" -c "$selected"
 fi
 tmux switch-client -t "$selected_name"
-

@@ -49,6 +49,7 @@ function tmuxSessionizer() {
   fi
 }
 
+alias t="tmux new-session -A -s main"
 function tmuxInit(){
     if [ -z "$TMUX" ]; then
         t
@@ -68,7 +69,6 @@ alias clearnvimswap="rm -rf ~/.local/state/nvim/swap"
 alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
-alias t="tmux new-session -A -s main"
 alias nv='nvim'
 bindkey -s ^f "tmuxSessionizer\n"
 bindkey -s ^g "lazygit\n"
@@ -80,3 +80,6 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(oh-my-posh init zsh --config robbyrussell)"
 eval "tmuxInit"
 
+
+# opencode
+export PATH=/Users/riccardomarantonio/.opencode/bin:$PATH
