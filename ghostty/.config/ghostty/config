@@ -5,11 +5,12 @@ keybind = cmd+g>r=reload_config
 # background-opacity = 0.8
 # background-blur = true
 custom-shader = ghostty-shaders/cursor_smear.glsl
-custom-shader = ghostty-shaders/cursor_blaze_no_trail.glsl
-font-family=JetBrainsMono Nerd Font
+# custom-shader = ghostty-shaders/cursor_blaze_no_trail.glsl
+font-family=MesloLGL Nerd Font Mono
 font-size=14
 # macos-titlebar-style = hidden
 
 cursor-style = block
+# background = "#000000"
 
 # command="tmux"

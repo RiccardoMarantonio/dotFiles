@@ -5,31 +5,38 @@ return {
   -- #  MASON - LSP main  #
   -- #                    #
   -- ######################
-
+  { "mfussenegger/nvim-jdtls", ft = "java" },
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
-    opts = {},
     config = function()
-      vim.lsp.config("pylsp", {
+      vim.lsp.config("pyright", {
         settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                ignore = { "E501" },
-                maxLineLength = 100,
-              },
+          python = {
+            -- pythonPath = "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
+            pythonPath = "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "workspace",
             },
           },
         },
       })
-      require("mason-lspconfig").setup({
+      require("lspconfig").clangd.setup({
+        cmd = { "clangd", "--compile-commands-dir=." },
+      })
+      local mason_lspconfig = require("mason-lspconfig")
+
+      -- setup Mason itself
+      mason_lspconfig.setup({
         ensure_installed = {
           "lua_ls",
-          "pylsp",
+          "pyright",
           "gopls",
           "clangd",
           "ts_ls",
@@ -37,7 +44,24 @@ return {
           "cssls",
           "jsonls",
           "bashls",
+          "jdtls",
         },
+        automatic_installation = true,
+        automatic_enable = { exclude = { "jdtls" } },
+      })
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettier",
+          "black",
+          "stylua",
+          "clang-format",
+          "gofumpt",
+          "shfmt",
+          "codelldb",
+          "java-debug-adapter",
+          "java-test",
+        },
+        run_on_start = true,
       })
     end,
   },
@@ -65,44 +89,4 @@ return {
       })
     end,
   },
-
-  -- ############
-  -- #          #
-  -- #  LINTER  #
-  -- #          #
-  -- ############
-
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   event = {
-  --     "BufReadPre",
-  --     "BufNewFile",
-  --   },
-  --   config = function()
-  --     local lint = require("lint")
-  --
-  --     lint.linters_by_ft = {
-  --       javascript = { "eslint_d" },
-  --       typescript = { "eslint_d" },
-  --       javascriptreact = { "eslint_d" },
-  --       typescriptreact = { "eslint_d" },
-  --       svelte = { "eslint_d" },
-  --       python = { "pylint" },
-  --       sh = { "shellcheck" },
-  --     }
-  --
-  --     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-  --
-  --     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-  --       group = lint_augroup,
-  --       callback = function()
-  --         lint.try_lint()
-  --       end,
-  --     })
-  --
-  --     vim.keymap.set("n", "<leader>cl", function()
-  --       lint.try_lint()
-  --     end, { desc = "Trigger linting for current file" })
-  --   end,
-  -- },
 }

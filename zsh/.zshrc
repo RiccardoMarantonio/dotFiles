@@ -22,6 +22,8 @@ function nvconfig(){
   nv
 }
 
+
+
 function fd ()
 {
   cd "$({find ~/.config -maxdepth 1 -type d -o -type l; find ~/Projects -maxdepth 2 -type d } | fzf)"
@@ -34,10 +36,18 @@ function fv ()
 }
 
 function juceinit () {
-    git clone --recursive https://github.com/Marantz01/JuceProjectTemplate .
+    git clone --recursive https://github.com/marantz-dev/JuceProjectTemplate .
     rm -rf .git readme.md
     git init
 
+}
+
+function javainit () {
+    git clone --recursive https://github.com/marantz-dev/JavaPlaygroundTemplate .
+    rm -rf .git readme.md
+    git init
+    gradle build 
+    gradle run
 }
 
 function tmuxSessionizer() {
@@ -70,6 +80,7 @@ alias clearnvimcache="rm -rf ~/.local/state/nvim"
 alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
 alias nv='nvim'
+alias apl="/Applications/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app/Contents/MacOS/AudioPluginHost"
 bindkey -s ^f "tmuxSessionizer\n"
 bindkey -s ^g "lazygit\n"
 
@@ -77,9 +88,30 @@ bindkey -s ^g "lazygit\n"
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-eval "$(oh-my-posh init zsh --config robbyrussell)"
-eval "tmuxInit"
 
 
 # opencode
 export PATH=/Users/riccardomarantonio/.opencode/bin:$PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
+# End of LM Studio CLI section
+#
+#
+#
+# For OpenJDK installed via Homebrew
+# export JAVA_HOME=/opt/homebrew/opt/openjdk@21
+# OR for the latest version:
+# export JAVA_HOME=/opt/homebrew/opt/openjdk
+# export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+# Add to PATH
+export PATH="$JAVA_HOME/bin:$PATH"
+#
+#
+#
+
+eval "$(oh-my-posh init zsh --config robbyrussell)"
+eval "tmuxInit"
+
+export PATH="$HOME/.local/bin:$PATH"

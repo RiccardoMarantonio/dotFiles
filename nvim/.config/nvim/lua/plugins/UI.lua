@@ -72,6 +72,7 @@ return {
         },
       },
       routes = {
+        -- 1st route: skip certain msg_show messages
         {
           filter = {
             event = "msg_show",
@@ -83,6 +84,19 @@ return {
           },
           view = "mini",
         },
+
+        -- 2nd route: skip jdtls progress
+        {
+          filter = {
+            event = "lsp",
+            kind = "progress",
+            any = {
+              { find = "Validate documents" },
+              { find = "Publish Diagnostics" },
+            },
+          },
+          opts = { skip = true },
+        },
       },
       presets = {
         bottom_search = true,
@@ -92,9 +106,6 @@ return {
       },
     },
     config = function(_, opts)
-      -- HACK: noice shows messages from before it was enabled,
-      -- but this is not ideal when Lazy is installing plugins,
-      -- so clear the messages in this case.
       if vim.o.filetype == "lazy" then
         vim.cmd([[messages clear]])
       end
@@ -144,5 +155,14 @@ return {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
+    keys = {
+      {
+        "<leader>st",
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = "Todo",
+      },
+    },
   },
 }

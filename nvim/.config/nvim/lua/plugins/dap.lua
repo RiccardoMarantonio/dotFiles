@@ -34,8 +34,9 @@ return {
         timeout = 100000, -- Increase timeout duration to 10 seconds
       },
     }
+    dap.configurations.c = dap.configurations.cpp
+    dap.adapters.c = dap.adapters.codelldb
 
-    -- ✅ Now reference codelldb in your configurations
     dap.configurations.cpp = {
       {
         name = "Launch C++ App",
@@ -57,11 +58,43 @@ return {
       },
     }
 
+    -- ##########
+    -- #        #
+    -- #  JAVA  #
+    -- #        #
+    -- ##########
+
+    dap.configurations.java = {
+      {
+        name = "Debug Launch (2GB)",
+        type = "java",
+        request = "launch",
+        vmArgs = "" .. "-Xmx2g ",
+      },
+      {
+        name = "Debug Attach (8000)",
+        type = "java",
+        request = "attach",
+        hostName = "127.0.0.1",
+        port = 8000,
+      },
+      {
+        name = "Debug Attach (5005)",
+        type = "java",
+        request = "attach",
+        hostName = "127.0.0.1",
+        port = 5005,
+      },
+    }
+
+    -- ##############
+    -- #            #
+    -- #  END JAVA  #
+    -- #            #
+    -- ##############
+
     -- ####################### UI AND KEYMAPS ########################
 
-    -- You can reuse these for C too:
-    dap.configurations.c = dap.configurations.cpp
-    dap.adapters.c = dap.adapters.codelldb
     vim.fn.sign_define("DapBreakpoint", {
       text = "● ",
       texthl = "DiagnosticSignError",

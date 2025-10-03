@@ -65,3 +65,8 @@ vim.diagnostic.config({
   float = { border = "rounded" },
 })
 vim.cmd.colorscheme("kanagawa-dragon")
+
+vim.api.nvim_create_user_command("FormatProject", function()
+  vim.cmd("args **/*.*")
+  vim.cmd("argdo lua require('conform').format()")
+end, {})
