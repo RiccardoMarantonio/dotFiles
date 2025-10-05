@@ -1,0 +1,52 @@
+return {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+        lsp = {
+            override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+                ["cmp.entry.get_documentation"] = true,
+            },
+        },
+        routes = {
+            -- 1st route: skip certain msg_show messages
+            {
+                filter = {
+                    event = "msg_show",
+                    any = {
+                        { find = "%d+L, %d+B" },
+                        { find = "; after #%d+" },
+                        { find = "; before #%d+" },
+                    },
+                },
+                view = "mini",
+            },
+
+            -- 2nd route: skip jdtls progress
+            {
+                filter = {
+                    event = "lsp",
+                    kind = "progress",
+                    any = {
+                        { find = "Validate documents" },
+                        { find = "Publish Diagnostics" },
+                    },
+                },
+                opts = { skip = true },
+            },
+        },
+        presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            lsp_doc_border = true,
+        },
+    },
+    config = function(_, opts)
+        if vim.o.filetype == "lazy" then
+            vim.cmd([[messages clear]])
+        end
+        require("noice").setup(opts)
+    end,
+}

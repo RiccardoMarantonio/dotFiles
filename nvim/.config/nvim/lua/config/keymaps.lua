@@ -149,10 +149,10 @@ function _G.copilot_toggle()
 
     if vim.g.copilot_enabled ~= true then
         vim.cmd("Copilot disable")
-        vim.notify("Copilot Disabled", vim.log.levels.INFO, { title = "Copilot" })
+        vim.notify("🔴 Copilot Disabled", vim.log.levels.INFO, { title = "Copilot" })
     else
         vim.cmd("Copilot enable")
-        vim.notify("Copilot Enabled", vim.log.levels.INFO, { title = "Copilot" })
+        vim.notify("🟢 Copilot Enabled", vim.log.levels.INFO, { title = "Copilot" })
     end
 end
 
