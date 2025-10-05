@@ -75,41 +75,21 @@ function tmuxInit(){
 
 
 alias ls="eza --show-symlinks -a --tree --level=0  --icons --git"
-alias clearnvimswap="rm -rf ~/.local/state/nvim/swap"
-alias clearnvimcache="rm -rf ~/.local/state/nvim"
-alias asperite="/Users/riccardomarantonio/Documents/Coding/Playground/aseprite/build/bin/aseprite"
 alias nu="$HOME/.local/scripts/nvim-userconfig.sh"
 alias nv='nvim'
-alias apl="/Applications/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app/Contents/MacOS/AudioPluginHost"
-bindkey -s ^f "tmuxSessionizer\n"
-bindkey -s ^g "lazygit\n"
+alias aph="/Applications/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app/Contents/MacOS/AudioPluginHost"
+alias bi='selection=$((brew formulae; brew casks) | fzf --multi --height 40% --layout=reverse --border --prompt="Install> "); \
+[ -n "$selection" ] && brew install $selection'
+alias bu='selection=$((brew list --formula; brew list --cask) | fzf --multi --height 40% --layout=reverse --border --prompt="Uninstall> "); \
+[ -n "$selection" ] && brew uninstall $selection'
 
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
-
-# opencode
-export PATH=/Users/riccardomarantonio/.opencode/bin:$PATH
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
-# End of LM Studio CLI section
-#
-#
-#
-# For OpenJDK installed via Homebrew
-# export JAVA_HOME=/opt/homebrew/opt/openjdk@21
-# OR for the latest version:
-# export JAVA_HOME=/opt/homebrew/opt/openjdk
-# export JAVA_HOME=$(/usr/libexec/java_home -v 21)
 export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
-# Add to PATH
 export PATH="$JAVA_HOME/bin:$PATH"
-#
-#
-#
 
 eval "$(oh-my-posh init zsh --config robbyrussell)"
 eval "tmuxInit"
