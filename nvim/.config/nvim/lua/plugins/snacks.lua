@@ -18,42 +18,6 @@ return {
 
             picker = { enabled = true },
             notifier = { enabled = true },
-            image = {
-                enabled = true,
-                integrations = {
-                    markdown = {
-                        enabled = true,
-
-                        only_render_image_at_cursor = true,
-                    },
-                    telescope = true,
-                    notify = true,
-                    latex = true,
-                },
-                doc = {
-
-                    max_width = vim.g.neovim_mode == "skitty" and 5 or 60,
-                    max_height = vim.g.neovim_mode == "skitty" and 2.5 or 30,
-                },
-                math = {
-                    enabled = true,
-                    inline = false,
-                    float = false,
-                },
-                convert = {
-                    notify = true,
-                    mermaid = function()
-                        local theme = vim.o.background == "light" and "neutral" or "dark"
-                        return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "{scale}" }
-                    end,
-                    magick = {
-                        default = { "{src}[0]", "-scale", "1920x1080>" },
-                        vector = { "-density", 192, "{src}[0]" },
-                        math = { "-density", 192, "{src}[0]", "-trim" },
-                        pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
-                    },
-                },
-            },
         },
         keys = {
             {

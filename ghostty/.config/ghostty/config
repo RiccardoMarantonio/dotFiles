@@ -2,6 +2,14 @@ theme = Kanagawa Dragon
 # theme = Afterglow
 macos-titlebar-style=transparent
 keybind = cmd+g>r=reload_config
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+
+
+# cursor-thickness = 0.8
 # background-opacity = 0.8
 # background-blur = true
 # custom-shader = ghostty-shaders/cursor_smear.glsl

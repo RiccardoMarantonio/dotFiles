@@ -6,7 +6,7 @@ vim.o.relativenumber = true
 vim.o.mouse = "a"
 
 vim.schedule(function()
-  vim.o.clipboard = "unnamedplus"
+    vim.o.clipboard = "unnamedplus"
 end)
 
 vim.o.breakindent = true
@@ -40,11 +40,11 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.hl.on_yank()
+    end,
 })
 
 vim.opt.winborder = "rounded"
@@ -60,13 +60,17 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 vim.diagnostic.config({
-  virtual_text = true,
-  underline = true,
-  float = { border = "rounded" },
+    virtual_text = true,
+    underline = true,
+    float = { border = "rounded" },
 })
 vim.cmd.colorscheme("kanagawa-dragon")
 
 vim.api.nvim_create_user_command("FormatProject", function()
-  vim.cmd("args **/*.*")
-  vim.cmd("argdo lua require('conform').format()")
+    vim.cmd("args **/*.*")
+    vim.cmd("argdo lua require('conform').format()")
 end, {})
+
+vim.opt.guicursor = "n:blinkoff0"
+vim.opt.showmode = false
+vim.opt.cmdheight = 0
