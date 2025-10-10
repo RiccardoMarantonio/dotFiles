@@ -5,20 +5,24 @@ return {
         lazy = false,
         opts = {
             indent = {
-                indent = {
-                    enabled = true,
-                },
-                scope = {
-                    enabled = true,
-                    char = "│",
-                    hl = "SnacksIndentScope",
-                    only_current = true,
-                },
+                enabled = true,
+            },
+            scope = {
+                enabled = true,
+                char = "│",
+                hl = "SnacksIndentScope",
+                only_current = true,
             },
 
-            picker = { enabled = true },
+            picker = {
+                enabled = true,
+                layout = "select",
+            },
             notifier = { enabled = true },
         },
+
+        -- ########## KEYMAPS ##########
+
         keys = {
             {
                 "<leader>e",

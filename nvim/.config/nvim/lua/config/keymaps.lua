@@ -48,6 +48,7 @@ vim.api.nvim_set_keymap(
 -- #  LSP Attach Function  #
 -- #                       #
 -- #########################
+
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("my.lsp", {}),
     callback = function(args)
@@ -80,13 +81,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end, opts)
 
-        if vim.bo.filetype == "java" then
-            vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
-            vim.keymap.set("v", "<leader>cf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
-        else
+        if vim.bo.filetype ~= "java" then
             vim.keymap.set("n", "<leader>cf", function()
                 require("conform").format({ async = true })
             end, { buffer = bufnr, noremap = true, silent = true, desc = "Format current buffer" })
+        else
+            vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
+            vim.keymap.set("v", "<leader>cf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
         end
     end,
 })
@@ -142,7 +143,7 @@ vim.keymap.set("n", "<leader>q", toggle_qf, { noremap = true, silent = true })
 -- #  COPILOT TOGGLER  #
 -- #                   #
 -- #####################
---
+
 vim.g.copilot_enabled = true
 function _G.copilot_toggle()
     vim.g.copilot_enabled = not vim.g.copilot_enabled
