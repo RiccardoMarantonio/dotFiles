@@ -3,6 +3,7 @@ theme = Afterglow
 macos-titlebar-style=transparent
 keybind = cmd+g>r=reload_config
 
+# background = 242933
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor

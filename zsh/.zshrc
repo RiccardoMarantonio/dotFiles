@@ -7,7 +7,9 @@ export VISUAL=nvim
 # #  CUSTOM FUNCTIONS  #
 # #                    #
 # ######################
-
+function fh(){
+    cat ~/.zsh_history | fzf --multi --height 40% --layout=reverse --border 
+}
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -95,3 +97,13 @@ eval "$(oh-my-posh init zsh --config robbyrussell)"
 eval "tmuxInit"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# bun completions
+[ -s "/Users/riccardomarantonio/.bun/_bun" ] && source "/Users/riccardomarantonio/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/Users/riccardomarantonio/.opencode/bin:$PATH

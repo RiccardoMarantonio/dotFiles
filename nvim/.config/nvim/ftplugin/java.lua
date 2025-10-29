@@ -17,6 +17,14 @@ end
 
 local bundles = {
     vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
+    -- AspectJ tools
+    vim.fn.expand("~/.local/lib/aspectjtools.jar"),
+    vim.fn.expand("~/.local/lib/aspectjrt.jar"),
+    vim.fn.expand("~/.local/lib/aspectjweaver.jar"),
+    -- BCEL
+    vim.fn.expand("~/.local/lib/bcel.jar"),
+    -- JavaAssist
+    vim.fn.expand("~/.local/lib/javassist.jar"),
 }
 
 vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
@@ -31,12 +39,26 @@ local config = {
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
         "-javaagent:" .. home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar",
+        "-javaagent:" .. home .. "/.local/lib/aspectjweaver.jar", -- AspectJ weaving
         "-Xmx4g",
         "--add-modules=ALL-SYSTEM",
         "--add-opens",
         "java.base/java.util=ALL-UNNAMED",
         "--add-opens",
         "java.base/java.lang=ALL-UNNAMED",
+
+        -- Add classpath for the libraries
+        "-cp",
+        home
+            .. "/.local/lib/bcel.jar:"
+            .. home
+            .. "/.local/lib/javassist.jar:"
+            .. home
+            .. "/.local/lib/aspectjtools.jar:"
+            .. home
+            .. "/.local/lib/aspectjrt.jar:"
+            .. home
+            .. "/.local/lib/aspectjweaver.jar",
 
         -- Eclipse jdtls location
         "-jar",
@@ -55,6 +77,15 @@ local config = {
             home = os.getenv("JAVA_HOME"),
             eclipse = {
                 downloadSources = true,
+            },
+            project = {
+                referencedLibraries = {
+                    home .. "/.local/lib/bcel.jar",
+                    home .. "/.local/lib/javassist.jar",
+                    home .. "/.local/lib/aspectjtools.jar",
+                    home .. "/.local/lib/aspectjrt.jar",
+                    home .. "/.local/lib/aspectjweaver.jar",
+                },
             },
             configuration = {
                 updateBuildConfiguration = "interactive",
@@ -84,17 +115,23 @@ local config = {
             },
             completion = {
                 favoriteStaticMembers = {
-                    "org.hamcrest.MatcherAssert.assertThat",
-                    "org.hamcrest.Matchers.*",
-                    "org.hamcrest.CoreMatchers.*",
-                    "org.junit.jupiter.api.Assertions.*",
-                    "java.util.Objects.requireNonNull",
-                    "java.util.Objects.requireNonNullElse",
-                    "org.mockito.Mockito.*",
+                    -- ... your existing favorites ...
+                    -- BCEL
+                    "org.apache.bcel.classfile.*",
+                    "org.apache.bcel.generic.*",
+                    -- JavaAssist
+                    "javassist.*",
+                    "javassist.bytecode.*",
+                    -- AspectJ
+                    "org.aspectj.lang.*",
+                    "org.aspectj.lang.annotation.*",
                 },
                 importOrder = {
                     "java",
                     "javax",
+                    "org.apache.bcel",
+                    "javassist",
+                    "org.aspectj",
                     "com",
                     "org",
                 },

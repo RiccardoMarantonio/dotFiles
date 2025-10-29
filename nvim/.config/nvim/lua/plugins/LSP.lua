@@ -17,7 +17,6 @@ return {
             vim.lsp.config("pyright", {
                 settings = {
                     python = {
-                        -- pythonPath = "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
                         pythonPath = "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
                         analysis = {
                             autoSearchPaths = true,
@@ -27,11 +26,7 @@ return {
                     },
                 },
             })
-            vim.lsp.config("clangd", {
-                cmd = { "clangd", "--compile-commands-dir=." },
-            })
             local mason_lspconfig = require("mason-lspconfig")
-
             -- setup Mason itself
             mason_lspconfig.setup({
                 ensure_installed = {

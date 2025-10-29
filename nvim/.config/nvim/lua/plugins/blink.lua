@@ -1,28 +1,31 @@
 return {
-  "saghen/blink.cmp",
-  dependencies = { "rafamadriz/friendly-snippets" },
+    "saghen/blink.cmp",
 
-  version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
 
-  opts = {
+    version = "1.*",
 
-    keymap = {
-      preset = "enter",
-      ["<Up>"] = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
+    opts = {
+
+        keymap = {
+            preset = "enter",
+            ["<Up>"] = { "select_prev", "fallback" },
+            ["<Down>"] = { "select_next", "fallback" },
+        },
+
+        appearance = {
+            nerd_font_variant = "mono",
+        },
+
+        completion = {
+            list = { selection = { preselect = false, auto_insert = false } },
+            documentation = { auto_show = true },
+        },
+        sources = {
+            default = { "lsp", "path", "snippets", "buffer" },
+        },
+
+        fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-
-    appearance = {
-      nerd_font_variant = "mono",
-    },
-
-    completion = { documentation = { auto_show = true } },
-
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-    },
-
-    fuzzy = { implementation = "prefer_rust_with_warning" },
-  },
-  opts_extend = { "sources.default" },
+    opts_extend = { "sources.default" },
 }

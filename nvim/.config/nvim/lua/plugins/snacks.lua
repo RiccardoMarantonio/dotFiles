@@ -4,21 +4,10 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            indent = {
-                enabled = true,
-            },
-            scope = {
-                enabled = true,
-                char = "│",
-                hl = "SnacksIndentScope",
-                only_current = true,
-            },
-
             picker = {
                 enabled = true,
                 layout = "select",
             },
-            notifier = { enabled = true },
         },
 
         -- ########## KEYMAPS ##########
@@ -111,6 +100,13 @@ return {
                     Snacks.picker.diagnostics()
                 end,
                 desc = "Diagnostics",
+            },
+            {
+                "<leader>tt",
+                function()
+                    Snacks.picker.todo_comments()
+                end,
+                desc = "TODO Comments",
             },
         },
     },

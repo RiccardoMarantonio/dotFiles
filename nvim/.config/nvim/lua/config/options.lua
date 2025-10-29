@@ -1,3 +1,45 @@
+-- Treesitter-based folding
+-- Enable Tree-sitter based folding
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- Folding behaviour
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldnestmax = 2
+vim.o.foldminlines = 1
+
+-- Cleaner fold look
+vim.o.fillchars = "fold: "
+
+-- Optional: Custom fold text
+vim.o.foldtext = "v:lua.CustomFoldText()"
+
+function _G.CustomFoldText()
+    local line = vim.fn.getline(vim.v.foldstart)
+    return line .. " ... }"
+end
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    callback = function()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.bo[buf].buftype == "" and not vim.wo.diff then
+            pcall(vim.cmd, "silent! mkview")
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    callback = function()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.bo[buf].buftype == "" and not vim.wo.diff then
+            pcall(vim.cmd, "silent! loadview")
+        end
+    end,
+})
+
+vim.o.viewoptions = "folds,cursor"
+
 vim.g.have_nerd_font = true
 
 vim.o.number = true
@@ -70,6 +112,6 @@ vim.api.nvim_create_user_command("FormatProject", function()
     vim.cmd("argdo lua require('conform').format()")
 end, {})
 
-vim.opt.guicursor = "n:blinkoff0"
+-- vim.opt.guicursor = "n:blinkoff0"
 vim.opt.showmode = false
 vim.opt.cmdheight = 1

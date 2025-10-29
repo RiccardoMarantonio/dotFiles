@@ -1,4 +1,4 @@
 require("config.lazy")
-require("config.options")
-require("config.keymaps")
 require("codeSeparator")
+require("config.keymaps")
+require("config.options")

@@ -39,7 +39,7 @@ return {
         dap.configurations.cpp = {
             {
                 name = "Launch C++ App",
-                type = "codelldb", -- 🔁 match adapter name
+                type = "codelldb",
                 request = "launch",
                 program = function()
                     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
@@ -49,8 +49,17 @@ return {
                 args = {},
             },
             {
+                name = "Launch AudioPluginHost",
+                type = "codelldb",
+                request = "launch",
+                program = "/Applications/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app/Contents/MacOS/AudioPluginHost",
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false,
+                args = {},
+            },
+            {
                 name = "Attach to AudioPluginHost",
-                type = "codelldb", -- 🔁 match adapter name
+                type = "codelldb",
                 request = "attach",
                 pid = require("dap.utils").pick_process,
                 cwd = "${workspaceFolder}",

@@ -11,8 +11,8 @@ vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>")
 vim.keymap.set("n", "<C-\\>", "<cmd>vsplit<CR>")
 
 vim.keymap.set("n", "<C-p>", "<cmd>bdelete!<CR>", { desc = "Force close buffer" })
-vim.keymap.set("n", "L", "<cmd>bn<CR>")
-vim.keymap.set("n", "H", "<cmd>bp<CR>")
+-- vim.keymap.set("n", "L", "<cmd>bn<CR>")
+-- vim.keymap.set("n", "H", "<cmd>bp<CR>")
 
 -- #############
 -- #           #
@@ -120,8 +120,13 @@ local maxContrast = false
 vim.keymap.set("n", "<leader>mc", function()
     maxContrast = not maxContrast
     if maxContrast then
+        require("kanagawa").setup({ transparent = false })
         vim.cmd.colorscheme("kanagawa")
+        -- override background manually
+        vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+        require("wezterm").config_builder().font_size = 20
     else
+        require("kanagawa").setup({ transparent = true })
         vim.cmd.colorscheme("kanagawa-dragon")
     end
 end)
@@ -144,11 +149,12 @@ vim.keymap.set("n", "<leader>q", toggle_qf, { noremap = true, silent = true })
 -- #                   #
 -- #####################
 
-vim.g.copilot_enabled = true
+local copilot_enabled = false
+vim.cmd("Copilot disable")
 function _G.copilot_toggle()
-    vim.g.copilot_enabled = not vim.g.copilot_enabled
+    copilot_enabled = not copilot_enabled
 
-    if vim.g.copilot_enabled ~= true then
+    if copilot_enabled ~= true then
         vim.cmd("Copilot disable")
         vim.notify("🔴 Copilot Disabled", vim.log.levels.INFO, { title = "Copilot" })
     else
@@ -158,3 +164,10 @@ function _G.copilot_toggle()
 end
 
 vim.keymap.set("n", "<leader>cp", copilot_toggle, { noremap = true, silent = true })
+
+vim.keymap.set(
+    "n",
+    "<leader>tl",
+    ':!open -a Skim build/tesi.pdf && osascript -e \'tell app "Skim" to activate\' -e \'tell app "Skim" to go to TeX line %l in document "build/tesi.pdf"\'<CR>',
+    { silent = true }
+)
