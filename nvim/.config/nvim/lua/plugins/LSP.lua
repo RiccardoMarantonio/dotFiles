@@ -5,7 +5,7 @@ return {
     -- #  MASON - LSP main  #
     -- #                    #
     -- ######################
-    { "mfussenegger/nvim-jdtls", ft = "java" },
+    { "mfussenegger/nvim-jdtls", ft = { "java", "aspectj" } },
     {
         "mason-org/mason-lspconfig.nvim",
         dependencies = {

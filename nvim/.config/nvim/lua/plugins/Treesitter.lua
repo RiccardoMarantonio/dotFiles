@@ -11,7 +11,7 @@ return {
 
             ignore_install = { "javascript" },
             auto_install = true,
-            highlight = { enable = true },
+            highlight = { enable = true, disable = { "latex", "tex" } },
         })
     end,
 }

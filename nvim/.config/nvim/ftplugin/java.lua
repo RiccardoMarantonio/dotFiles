@@ -17,13 +17,10 @@ end
 
 local bundles = {
     vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
-    -- AspectJ tools
     vim.fn.expand("~/.local/lib/aspectjtools.jar"),
     vim.fn.expand("~/.local/lib/aspectjrt.jar"),
     vim.fn.expand("~/.local/lib/aspectjweaver.jar"),
-    -- BCEL
     vim.fn.expand("~/.local/lib/bcel.jar"),
-    -- JavaAssist
     vim.fn.expand("~/.local/lib/javassist.jar"),
 }
 
@@ -48,17 +45,17 @@ local config = {
         "java.base/java.lang=ALL-UNNAMED",
 
         -- Add classpath for the libraries
-        "-cp",
-        home
-            .. "/.local/lib/bcel.jar:"
-            .. home
-            .. "/.local/lib/javassist.jar:"
-            .. home
-            .. "/.local/lib/aspectjtools.jar:"
-            .. home
-            .. "/.local/lib/aspectjrt.jar:"
-            .. home
-            .. "/.local/lib/aspectjweaver.jar",
+        -- "-cp",
+        -- home
+        --     .. "/.local/lib/bcel.jar:"
+        --     .. home
+        --     .. "/.local/lib/javassist.jar:"
+        --     .. home
+        --     .. "/.local/lib/aspectjtools.jar:"
+        --     .. home
+        --     .. "/.local/lib/aspectjrt.jar:"
+        --     .. home
+        --     .. "/.local/lib/aspectjweaver.jar",
 
         -- Eclipse jdtls location
         "-jar",
@@ -79,13 +76,7 @@ local config = {
                 downloadSources = true,
             },
             project = {
-                referencedLibraries = {
-                    home .. "/.local/lib/bcel.jar",
-                    home .. "/.local/lib/javassist.jar",
-                    home .. "/.local/lib/aspectjtools.jar",
-                    home .. "/.local/lib/aspectjrt.jar",
-                    home .. "/.local/lib/aspectjweaver.jar",
-                },
+                referencedLibraries = bundles,
             },
             configuration = {
                 updateBuildConfiguration = "interactive",
@@ -152,7 +143,7 @@ local config = {
     },
 
     vim.api.nvim_create_autocmd("FileType", {
-        pattern = "java",
+        pattern = { "java", "aspectj" },
         desc = "Setup jdtls",
         callback = function()
             require("jdtls").start_or_attach({

@@ -8,6 +8,8 @@ return {
                 enabled = true,
                 layout = "select",
             },
+            notify = { enabled = true },
+            notifier = { enabled = true },
         },
 
         -- ########## KEYMAPS ##########
@@ -35,11 +37,24 @@ return {
                 desc = "Notification History",
             },
             {
+                "<leader>ff",
+                function()
+                    Snacks.picker.files({
+                        show_empty = true,
+                        hidden = true,
+                        ignored = true,
+                        follow = true,
+                        supports_live = true,
+                    })
+                end,
+                desc = "find files",
+            },
+            {
                 "<leader><leader>",
                 function()
                     Snacks.picker.files()
                 end,
-                desc = "FInd Files",
+                desc = "find files",
             },
             {
                 "<leader>sc",

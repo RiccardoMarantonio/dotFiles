@@ -93,6 +93,8 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 
+export CLASSPATH="$CLASSPATH:$HOME/.local/lib/bcel.jar"
+
 eval "$(oh-my-posh init zsh --config robbyrussell)"
 eval "tmuxInit"
 
