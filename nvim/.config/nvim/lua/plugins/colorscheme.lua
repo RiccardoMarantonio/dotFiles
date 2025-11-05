@@ -1,5 +1,35 @@
 return {
     {
+        "EdenEast/nightfox.nvim",
+        priority = 1000,
+        config = function()
+            require("nightfox").setup({
+                options = {
+                    transparent = true,
+                    terminal_colors = true,
+                    dim_inactive = false, -- compile_path =
+                    vim.fn.stdpath("cache") .. "/nightfox",
+                },
+                groups = {
+                    all = {
+                        NormalFloat = { bg = "NONE" },
+                        FloatBorder = { bg = "NONE" },
+                        FloatTitle = { bg = "NONE" },
+                        Pmenu = { bg = "NONE" },
+                        PmenuSel = { bg = "sel0" },
+                        PmenuSbar = { bg = "NONE" },
+                        PmenuThumb = { bg = "sel0" },
+                        PmenuKind = { bg = "NONE" },
+                        PmenuKindSel = { bg = "sel0" },
+                        PmenuExtra = { bg = "NONE" },
+                        PmenuExtraSel = { bg = "sel0" },
+                    },
+                },
+            })
+        end,
+    },
+
+    {
         -- ##############
         -- #            #
         -- #  KANAGAWA  #

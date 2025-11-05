@@ -1,15 +1,10 @@
-# theme = Kanagawa Dragon
-theme = Afterglow
-macos-titlebar-style=transparent
-keybind = cmd+g>r=reload_config
-
-# background = 242933
+theme = Nordfox
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
 font-family = MesloLGL Nerd Font Mono
-font-size=18
+font-size=16
 
-cursor-style = block
-
+keybind = cmd+g>r=reload_config
+keybind = super+w=text:\x13w

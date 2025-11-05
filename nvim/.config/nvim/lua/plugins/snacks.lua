@@ -6,9 +6,7 @@ return {
         opts = {
             picker = {
                 enabled = true,
-                layout = "select",
             },
-            notify = { enabled = true },
             notifier = { enabled = true },
         },
 
@@ -32,7 +30,7 @@ return {
             {
                 "<leader>n",
                 function()
-                    Snacks.picker.notifications()
+                    Snacks.notifier.show_history()
                 end,
                 desc = "Notification History",
             },
@@ -52,7 +50,9 @@ return {
             {
                 "<leader><leader>",
                 function()
-                    Snacks.picker.files()
+                    Snacks.picker.files({
+                        layout = "select",
+                    })
                 end,
                 desc = "find files",
             },
@@ -64,11 +64,18 @@ return {
                 desc = "Commands",
             },
             {
-                "<leader>g",
+                "<leader>gg",
                 function()
                     Snacks.picker.grep()
                 end,
                 desc = "Grep",
+            },
+            {
+                "<leader>gd",
+                function()
+                    Snacks.picker.git_diff()
+                end,
+                desc = "Picker Git Diff",
             },
             {
                 "<leader>sk",
@@ -122,34 +129,6 @@ return {
                     Snacks.picker.todo_comments()
                 end,
                 desc = "TODO Comments",
-            },
-        },
-    },
-
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        opts = {
-            dashboard = {
-                preset = {
-                    header = [[
-    __  __     ____         _       __           __    __                  
-   / / / /__  / / /___     | |     / /___  _____/ /___/ /                  
-  / /_/ / _ \/ / / __ \    | | /| / / __ \/ ___/ / __  /                   
- / __  /  __/ / / /_/ /    | |/ |/ / /_/ / /  / / /_/ /                    
-/_/_/_/\___/_/_/\____/   __|__/|__/\____/_/  /_/\__,_( )        _          
-  / ____/___  ____  ____/ / /_  __  _____     / /_  _|/______ _(_)___      
- / / __/ __ \/ __ \/ __  / __ \/ / / / _ \   / __ \/ ___/ __ `/ / __ \     
-/ /_/ / /_/ / /_/ / /_/ / /_/ / /_/ /  __/  / /_/ / /  / /_/ / / / / / _ _ 
-\____/\____/\____/\__,_/_.___/\__, /\___/  /_.___/_/   \__,_/_/_/ /_(_|_|_)
-                             /____/                                        
-                                                                                                              ]],
-                },
-                sections = {
-                    { section = "header" },
-                },
-                enabled = true,
             },
         },
     },

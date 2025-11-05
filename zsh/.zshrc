@@ -36,7 +36,10 @@ function fv ()
   cd "$({find ~/.config -maxdepth 1 -type d -o -type l; find ~/Projects -maxdepth 2 -type d } | fzf)"
   nv
 }
-
+function fz ()
+{
+    zed "$({find ~/.config -maxdepth 1 -type d -o -type l; find ~/Projects -maxdepth 2 -type d } | fzf)"
+}
 function juceinit () {
     git clone --recursive https://github.com/marantz-dev/JuceProjectTemplate .
     rm -rf .git readme.md
@@ -85,6 +88,8 @@ alias bi='selection=$((brew formulae; brew casks) | fzf --multi --height 40% --l
 alias bu='selection=$((brew list --formula; brew list --cask) | fzf --multi --height 40% --layout=reverse --border --prompt="Uninstall> "); \
 [ -n "$selection" ] && brew uninstall $selection'
 
+alias z="zed"
+
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -93,10 +98,13 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 
-export CLASSPATH="$CLASSPATH:$HOME/.local/lib/bcel.jar"
+export CLASSPATH="$CLASSPATH:$HOME/.local/lib/javassist.jar"
 
 eval "$(oh-my-posh init zsh --config robbyrussell)"
-eval "tmuxInit"
+# eval "tmuxInit"
+
+export ASPECTJ_HOME=$HOME/.local/lib
+export PATH=$ASPECTJ_HOME/bin:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 

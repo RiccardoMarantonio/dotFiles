@@ -5,6 +5,7 @@ selected=$(
     ~/.local/scripts/listSessions.sh | fzf \
         --prompt "Select a TMUX session or directory: " \
         --bind "ctrl-x:execute($HOME/.local/scripts/killSession.sh {})+reload(~/.local/scripts/listSessions.sh)" \
+        --multi \
         --ansi
 )
 if [[ -z $selected ]]; then
@@ -12,10 +13,10 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _ | sed -E 's/\x1b\[[0-9;]*m//g; s/^[[:space:]]*\[TMUX\][[:space:]]*//')
+selected=$(echo "$selected" | sed -E 's/...//')
+selected=$(echo "$selected" | sed -E "s|~|$HOME|")
+selected_name=$(basename "$selected")
 
-# selected_name=$(basename "$selected" | tr . _ | sed 's/\[TMUX\]\///')
-# original=$(printf "%s\n" "$tmuxSessions" | sed -E 's/\x1b\[[0-9;]*m//g; s/^[[:space:]]*\[TMUX\][[:space:]]*//')
 if [[ -z $TMUX ]]; then
     tmux new-session -A -s "$selected_name" -c "$selected"
     exit 0
@@ -28,33 +29,3 @@ if ! tmux has-session -t "$selected_name" 2>/dev/null; then
     tmux new-session -ds "$selected_name" -c "$selected"
 fi
 tmux switch-client -t "$selected_name"
-
-# set -euo pipefail
-#
-# selected=$(
-#     ~/.local/scripts/listSessions.sh | fzf --multi \
-#         --ansi \
-#         --with-nth=2 \
-#         --delimiter="\t" \
-#         --prompt "Select a TMUX session or directory: " \
-#         --bind "ctrl-x:execute(~/.local/scripts/killSession.sh {1})+reload(~/.local/scripts/listSessions.sh)" \
-#         --bind "esc:abort"
-# )
-#
-# [[ -z "${selected:-}" ]] && exit 0
-#
-# selected_name=$(echo "$selected" | cut -f1)
-# selected_display=$(echo "$selected" | cut -f2)
-#
-# # --- If directory selected ---
-# if [[ -d "$selected_name" ]]; then
-#     clean_name=$(basename "$selected_name" | tr . _)
-#     if ! tmux has-session -t "$clean_name" 2>/dev/null; then
-#         tmux new-session -ds "$clean_name" -c "$selected_name"
-#     fi
-#     tmux switch-client -t "$clean_name"
-#     exit 0
-# fi
-#
-# # --- Otherwise it's a tmux session ---
-# tmux attach -t "$selected_name"

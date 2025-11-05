@@ -1,17 +1,5 @@
-local copilot_enabled = false
 local maxContrast = false
 local isLspWarningVisible = true
-
-vim.api.nvim_create_user_command("CopilotToggle", function()
-    copilot_enabled = not copilot_enabled
-    if copilot_enabled then
-        vim.cmd("Copilot disable")
-        vim.notify("🔴 Copilot Disabled", vim.log.levels.INFO, { title = "Copilot" })
-    else
-        vim.cmd("Copilot enable")
-        vim.notify("🟢 Copilot Enabled", vim.log.levels.INFO, { title = "Copilot" })
-    end
-end, {})
 
 vim.api.nvim_create_user_command("MaxContrast", function()
     maxContrast = not maxContrast

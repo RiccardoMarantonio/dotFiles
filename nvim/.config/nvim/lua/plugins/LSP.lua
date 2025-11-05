@@ -1,10 +1,4 @@
 return {
-
-    -- ######################
-    -- #                    #
-    -- #  MASON - LSP main  #
-    -- #                    #
-    -- ######################
     { "mfussenegger/nvim-jdtls", ft = { "java", "aspectj" } },
     {
         "mason-org/mason-lspconfig.nvim",
@@ -14,22 +8,13 @@ return {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
         config = function()
-            vim.lsp.config("pyright", {
-                settings = {
-                    python = {
-                        pythonPath = "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11",
-                        analysis = {
-                            autoSearchPaths = true,
-                            useLibraryCodeForTypes = true,
-                            diagnosticMode = "workspace",
-                        },
-                    },
-                },
+            require("mason-lspconfig").setup({
+                automatic_installation = true,
+                automatic_enable = { exclude = { "jdtls" } },
             })
-            local mason_lspconfig = require("mason-lspconfig")
-            -- setup Mason itself
-            mason_lspconfig.setup({
+            require("mason-tool-installer").setup({
                 ensure_installed = {
+                    -- LSP
                     "lua_ls",
                     "pyright",
                     "gopls",
@@ -40,18 +25,14 @@ return {
                     "jsonls",
                     "bashls",
                     "jdtls",
-                },
-                automatic_installation = true,
-                automatic_enable = { exclude = { "jdtls" } },
-            })
-            require("mason-tool-installer").setup({
-                ensure_installed = {
+                    -- FORMATTERS
                     "prettier",
                     "black",
                     "stylua",
                     "clang-format",
                     "gofumpt",
                     "shfmt",
+                    -- TESTING & DEBUGGING
                     "codelldb",
                     "java-debug-adapter",
                     "java-test",
