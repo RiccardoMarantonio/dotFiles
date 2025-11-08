@@ -30,7 +30,6 @@ map("n", "H", "<cmd>b#<CR>")
 map("n", "<leader>cp", "<CMD>AIToggle<CR>")
 
 map("n", "<leader>co", "<cmd>copen<CR><ESC>", "Open Quickfix")
-map("n", "<leader>cc", "<cmd>cclose<CR><ESC>", "Close Quickfix")
 map("n", "]q", "<cmd>cn<CR>zz", "Next Item in quickfix List")
 map("n", "[q", "<cmd>cp<CR>zz", "Previous Item in quickfix List")
 map("n", "<leader>qe", ":lua vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })<CR>:copen<CR>")

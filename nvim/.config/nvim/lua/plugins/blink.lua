@@ -3,7 +3,7 @@ return {
 
     dependencies = { "rafamadriz/friendly-snippets" },
 
-    version = "1.*",
+    version = "1.7.0",
 
     opts = {
 
@@ -20,7 +20,7 @@ return {
         signature = { enabled = true },
 
         completion = {
-            list = { selection = { preselect = false, auto_insert = false } },
+            list = { selection = { preselect = true, auto_insert = false } },
             documentation = { auto_show = true },
         },
 

@@ -1,6 +1,7 @@
 return {
     {
         "folke/snacks.nvim",
+        version = "2.30.0",
         priority = 1000,
         lazy = false,
         opts = {
@@ -69,6 +70,13 @@ return {
                     Snacks.picker.grep()
                 end,
                 desc = "Grep",
+            },
+            {
+                "<leader>st",
+                function()
+                    Snacks.picker.colorschemes()
+                end,
+                desc = "Themes",
             },
             {
                 "<leader>gd",

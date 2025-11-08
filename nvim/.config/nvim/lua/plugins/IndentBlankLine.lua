@@ -1,6 +1,7 @@
 return {
     {
         "lukas-reineke/indent-blankline.nvim",
+        vresion = "3.9.0",
         main = "ibl",
         opts = {},
         config = function()

@@ -1,6 +1,15 @@
 return {
+    { "iruzo/matrix-nvim" },
+
+    -- ##############
+    -- #            #
+    -- #  NORD-FOX  #
+    -- #            #
+    -- ##############
+
     {
         "EdenEast/nightfox.nvim",
+        version = "3.10.0",
         priority = 1000,
         config = function()
             require("nightfox").setup({
@@ -29,13 +38,13 @@ return {
         end,
     },
 
-    {
-        -- ##############
-        -- #            #
-        -- #  KANAGAWA  #
-        -- #            #
-        -- ##############
+    -- ##############
+    -- #            #
+    -- #  KANAGAWA  #
+    -- #            #
+    -- ##############
 
+    {
         "rebelot/kanagawa.nvim",
         priority = 1000,
         config = function()

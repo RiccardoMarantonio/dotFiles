@@ -3,8 +3,12 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-font-family = MesloLGL Nerd Font Mono
-font-size=16
+font-family = Terminess Nerd Font Mono
+font-size=20
 
 keybind = cmd+g>r=reload_config
 keybind = super+w=text:\x13w
+
+adjust-cell-height=20%
+
+title = ""

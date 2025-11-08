@@ -1,5 +1,6 @@
 return {
     "stevearc/conform.nvim",
+    version = "9.1.0",
     opts = {},
     config = function()
         require("conform").setup({

@@ -1,13 +1,23 @@
 return {
-    { "mfussenegger/nvim-jdtls", ft = { "java", "aspectj" } },
+    { "mfussenegger/nvim-jdtls", commit = "38d265e", ft = { "java", "aspectj" } },
     {
         "mason-org/mason-lspconfig.nvim",
+        version = "2.1.0",
         dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
-            "neovim/nvim-lspconfig",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            { "mason-org/mason.nvim", opts = {}, version = "2.1.0" },
+            { "neovim/nvim-lspconfig", version = "2.5.0" },
+            { "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "517ef59" },
         },
         config = function()
+            vim.lsp.config("pyright", {
+                settings = {
+                    python = {
+                        venvPath = ".", -- root where .venv is located
+                        venv = ".venv",
+                        pythonPath = "./.venv/bin/python", -- explicit path for uv venv
+                    },
+                },
+            })
             require("mason-lspconfig").setup({
                 automatic_installation = true,
                 automatic_enable = { exclude = { "jdtls" } },

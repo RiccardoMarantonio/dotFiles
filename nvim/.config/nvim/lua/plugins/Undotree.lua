@@ -1,5 +1,6 @@
 return {
     "mbbill/undotree",
+    version = "6.1",
     keys = {
         {
             "U",

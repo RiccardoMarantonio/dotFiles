@@ -1,5 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    commit = "42fc28b",
     branch = "master",
     lazy = false,
     build = ":TSUpdate",

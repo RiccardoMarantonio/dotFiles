@@ -1,14 +1,15 @@
 return {
     {
         "supermaven-inc/supermaven-nvim",
+        commit = "07d20fc",
         config = function()
             require("supermaven-nvim").setup({})
 
-            local inlineCompletionEnabled = false
+            InlineCompletionEnabled = false
 
             vim.api.nvim_create_user_command("AIToggle", function()
-                inlineCompletionEnabled = not inlineCompletionEnabled
-                if inlineCompletionEnabled ~= true then
+                InlineCompletionEnabled = not InlineCompletionEnabled
+                if InlineCompletionEnabled ~= true then
                     vim.cmd("SupermavenStop")
                     vim.notify("🔴 Inline Completion Disabled", vim.log.levels.INFO, { title = "System" })
                 else
