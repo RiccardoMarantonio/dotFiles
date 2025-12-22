@@ -1,12 +1,21 @@
 export EDITOR=nvim
 export VISUAL=nvim
-export SCRIPTS=$HOME/dev/Scripts
+export SCRIPTS=$HOME/dev/scripts
 export BUN_INSTALL="$HOME/.bun"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH=$ASPECTJ_HOME/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export MINTED_PYTHON=/opt/homebrew/bin/python3.12
+# Add all subdirectories of $SCRIPTS to PATH
+if [ -d "$SCRIPTS" ]; then
+  for dir in $(find "$SCRIPTS" -type d); do
+    PATH="$dir:$PATH"
+  done
+fi
+
+export PATH
 export PATH=/Users/riccardomarantonio/.opencode/bin:$PATH
 
 # ######################
@@ -50,6 +59,10 @@ alias nv='nvim'
 alias aph="/Applications/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app/Contents/MacOS/AudioPluginHost"
 alias bi='selection=$((brew formulae; brew casks) | fzf --multi --height 40% --layout=reverse --border --prompt="Install> "); [ -n "$selection" ] && brew install $selection'
 alias bu='selection=$((brew list --formula; brew list --cask) | fzf --multi --height 40% --layout=reverse --border --prompt="Uninstall> "); [ -n "$selection" ] && brew uninstall $selection'
+alias zo='zed -r $({find $HOME/.config -maxdepth 1 -type d -o -type l; find $HOME/dev -maxdepth 2 -type d; } | fzf)'
+alias ct='cd $(tmux run "echo '#{session_path}'")'
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh

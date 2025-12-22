@@ -9,12 +9,26 @@ return {
             { "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "517ef59" },
         },
         config = function()
-            vim.lsp.config("pyright", {
+            vim.lsp.config("basedpyright", {
                 settings = {
+                    basedpyright = {
+                        -- 1. Path settings (moved here allows basedpyright to manage them natively)
+                        disableOrganizeImports = true, -- Optional: usually good if you use Ruff/Isort
+                        analysis = {
+                            -- 2. CRITICAL: Keys must be camelCase, not lowercase
+                            typeCheckingMode = "off",
+                            diagnosticMode = "workspace",
+                            useLibraryCodeForTypes = true,
+                            autoImportCompletions = true,
+                            autoSearchPaths = true,
+                            diagnosticSeverityOverrides = {
+                                -- specific ignores can go here
+                            },
+                        },
+                    },
                     python = {
-                        venvPath = ".", -- root where .venv is located
+                        venvPath = ".",
                         venv = ".venv",
-                        pythonPath = "./.venv/bin/python", -- explicit path for uv venv
                     },
                 },
             })
@@ -26,7 +40,7 @@ return {
                 ensure_installed = {
                     -- LSP
                     "lua_ls",
-                    "pyright",
+                    -- "pyright",
                     "gopls",
                     "clangd",
                     "ts_ls",

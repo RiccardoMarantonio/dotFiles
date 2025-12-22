@@ -33,3 +33,19 @@ vim.api.nvim_create_user_command("ToggleLSPWarnings", function()
         })
     end
 end, {})
+
+vim.api.nvim_create_user_command("Wa", function()
+    vim.cmd("wa")
+end, {})
+
+vim.api.nvim_create_user_command("WA", function()
+    vim.cmd("wa")
+end, {})
+
+vim.api.nvim_create_user_command("Qa", function()
+    vim.cmd("qa")
+end, {})
+
+vim.api.nvim_create_user_command("QA", function()
+    vim.cmd("qa")
+end, {})

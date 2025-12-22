@@ -11,7 +11,7 @@ return {
             sync_install = false,
             ignore_install = { "javascript" },
             auto_install = true,
-            highlight = { enable = true },
+            -- highlight = { enable = true, disable = { "tex", "latex" } },
         })
     end,
 }

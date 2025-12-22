@@ -19,8 +19,8 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Smart autoindenting when starting a new line
-vim.cmd.colorscheme("nordfox")
-vim.opt.guicursor = "n:blinkoff0"
+vim.cmd.colorscheme("everforest")
+-- vim.opt.guicursor = "n:blinkoff0"
 vim.opt.showmode = false
 vim.opt.cmdheight = 1
 vim.diagnostic.config({ virtual_text = true, underline = true, float = { border = "rounded" } })

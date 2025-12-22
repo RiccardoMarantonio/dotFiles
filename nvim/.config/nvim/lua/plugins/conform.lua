@@ -19,7 +19,9 @@ return {
                 markdown = { "prettier" },
                 yaml = { "prettier" },
                 sh = { "shfmt" },
-                tex = { "latexindent" },
+                tex = { "tex-fmt" },
+                bib = { "bibtex-tidy" },
+                typst = { "typstyle" },
             },
 
             formatters = {
