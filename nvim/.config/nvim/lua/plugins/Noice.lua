@@ -13,6 +13,12 @@ return {
             },
         },
         views = {
+            hover = {
+                border = { style = "rounded", padding = { 0, 0 } },
+                win_options = {
+                    winhighlight = { Normal = "NormalFloat", FloatBorder = "DiagnosticInfo" },
+                },
+            },
             cmdline_popup = {
                 position = {
                     row = 5,

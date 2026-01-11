@@ -10,6 +10,19 @@ return {
         config = function()
             require("everforest").setup({
                 transparent_background_level = 2,
+                on_highlights = function(hl, palette)
+                    hl.NormalFloat = { bg = "NONE" }
+                    hl.FloatBorder = { bg = "NONE" }
+                    hl.FloatTitle = { bg = "NONE" }
+                    hl.Pmenu = { bg = "NONE" }
+                    hl.PmenuSel = { bg = palette.bg_visual }
+                    hl.PmenuSbar = { bg = "NONE" }
+                    hl.PmenuThumb = { bg = palette.bg_visual }
+                    hl.PmenuKind = { bg = "NONE" }
+                    hl.PmenuKindSel = { bg = palette.bg_visual }
+                    hl.PmenuExtra = { bg = "NONE" }
+                    hl.PmenuExtraSel = { bg = palette.bg_visual }
+                end,
             })
         end,
     },

@@ -19,7 +19,7 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Smart autoindenting when starting a new line
-vim.cmd.colorscheme("everforest")
+vim.cmd.colorscheme("nordfox")
 -- vim.opt.guicursor = "n:blinkoff0"
 vim.opt.showmode = false
 vim.opt.cmdheight = 1
@@ -50,3 +50,10 @@ function _G.CustomFoldText()
     local line = vim.fn.getline(vim.v.foldstart)
     return line .. " ... }"
 end
+
+-- Add this to your init.lua
+vim.filetype.add({
+    extension = {
+        aj = "java", -- Treat .aj files as Java for LSP/Highlighting
+    },
+})

@@ -17,9 +17,9 @@ end
 
 local bundles = {
     vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
-    vim.fn.expand("~/.local/lib/aspectjtools.jar"),
-    vim.fn.expand("~/.local/lib/aspectjrt.jar"),
-    vim.fn.expand("~/.local/lib/aspectjweaver.jar"),
+    vim.fn.expand("~/aspectj1.9/ib/aspectjtools.jar"),
+    vim.fn.expand("~/aspectj1.9/ib/aspectjrt.jar"),
+    vim.fn.expand("~/aspectj1.9/lib/aspectjweaver.jar"),
     vim.fn.expand("~/.local/lib/bcel.jar"),
     vim.fn.expand("~/.local/lib/javassist.jar"),
 }
@@ -36,26 +36,13 @@ local config = {
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
         "-javaagent:" .. home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar",
-        "-javaagent:" .. home .. "/.local/lib/aspectjweaver.jar", -- AspectJ weaving
+        "-javaagent:" .. home .. "/aspectj1.9/lib/aspectjweaver.jar", -- AspectJ weaving
         "-Xmx4g",
         "--add-modules=ALL-SYSTEM",
         "--add-opens",
         "java.base/java.util=ALL-UNNAMED",
         "--add-opens",
         "java.base/java.lang=ALL-UNNAMED",
-
-        -- Add classpath for the libraries
-        -- "-cp",
-        -- home
-        --     .. "/.local/lib/bcel.jar:"
-        --     .. home
-        --     .. "/.local/lib/javassist.jar:"
-        --     .. home
-        --     .. "/.local/lib/aspectjtools.jar:"
-        --     .. home
-        --     .. "/.local/lib/aspectjrt.jar:"
-        --     .. home
-        --     .. "/.local/lib/aspectjweaver.jar",
 
         -- Eclipse jdtls location
         "-jar",
