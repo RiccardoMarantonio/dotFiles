@@ -1,5 +1,6 @@
 -- ########## UI OPTS ##########
 
+vim.cmd.colorscheme("nordfox")
 vim.opt.viewoptions = "folds,cursor"
 vim.g.have_nerd_font = true
 vim.opt.number = true
@@ -19,7 +20,6 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Smart autoindenting when starting a new line
-vim.cmd.colorscheme("nordfox")
 -- vim.opt.guicursor = "n:blinkoff0"
 vim.opt.showmode = false
 vim.opt.cmdheight = 1
@@ -56,4 +56,10 @@ vim.filetype.add({
     extension = {
         aj = "java", -- Treat .aj files as Java for LSP/Highlighting
     },
+})
+
+vim.api.nvim_set_hl(0, "MatchParen", {
+    fg = "#ffffff",
+    bg = "#5e81ac",
+    bold = true,
 })

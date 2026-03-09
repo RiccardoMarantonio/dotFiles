@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
         vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({

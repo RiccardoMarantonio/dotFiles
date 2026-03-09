@@ -1,7 +1,7 @@
 return {
     { "mfussenegger/nvim-jdtls", commit = "38d265e", ft = { "java", "aspectj" } },
     {
-        "mason-org/mhklassjhdkajshdkason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         version = "2.1.0",
         dependencies = {
             { "mason-org/mason.nvim", opts = {}, version = "2.1.0" },

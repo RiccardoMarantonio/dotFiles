@@ -1,9 +1,10 @@
-theme = One Half Dark
+theme = Nordfox
+
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-font-family = Terminess Nerd Font Mono
+font-family = Lilex Nerd Font Mono
 font-size=22
 
 keybind = cmd+g>r=reload_config
