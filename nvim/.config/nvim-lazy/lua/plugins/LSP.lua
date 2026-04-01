@@ -9,29 +9,29 @@ return {
             { "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "517ef59" },
         },
         config = function()
-            vim.lsp.config("basedpyright", {
-                settings = {
-                    basedpyright = {
-                        -- 1. Path settings (moved here allows basedpyright to manage them natively)
-                        disableOrganizeImports = true, -- Optional: usually good if you use Ruff/Isort
-                        analysis = {
-                            -- 2. CRITICAL: Keys must be camelCase, not lowercase
-                            typeCheckingMode = "off",
-                            diagnosticMode = "workspace",
-                            useLibraryCodeForTypes = true,
-                            autoImportCompletions = true,
-                            autoSearchPaths = true,
-                            diagnosticSeverityOverrides = {
-                                -- specific ignores can go here
-                            },
-                        },
-                    },
-                    python = {
-                        venvPath = ".",
-                        venv = ".venv",
-                    },
-                },
-            })
+            -- vim.lsp.config("basedpyright", {
+            --     settings = {
+            --         basedpyright = {
+            --             -- 1. Path settings (moved here allows basedpyright to manage them natively)
+            --             disableOrganizeImports = true, -- Optional: usually good if you use Ruff/Isort
+            --             analysis = {
+            --                 -- 2. CRITICAL: Keys must be camelCase, not lowercase
+            --                 typeCheckingMode = "off",
+            --                 diagnosticMode = "workspace",
+            --                 useLibraryCodeForTypes = true,
+            --                 autoImportCompletions = true,
+            --                 autoSearchPaths = true,
+            --                 diagnosticSeverityOverrides = {
+            --                     -- specific ignores can go here
+            --                 },
+            --             },
+            --         },
+            --         python = {
+            --             venvPath = ".",
+            --             venv = ".venv",
+            --         },
+            --     },
+            -- })
             require("mason-lspconfig").setup({
                 automatic_installation = true,
                 automatic_enable = { exclude = { "jdtls" } },

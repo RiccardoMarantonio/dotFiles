@@ -7,7 +7,7 @@ config.color_scheme = "nordfox"
 -- config.window_background_opacity = 0.30
 -- config.macos_window_background_blur = 20
 
-config.font = wezterm.font("Lilex Nerd Font Mono")
+config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 
 config.window_decorations = "RESIZE"
 
@@ -18,9 +18,99 @@ config.tab_max_width = 24
 config.window_padding = {
 	left = 2,
 	right = 2,
-	top = 2,
+	top = 10,
 	bottom = 2,
 }
+-- Recreate your Tmux Nord Status Bar & Track Previous Workspace
+wezterm.on("update-status", function(window, pane)
+	-- Grab the current workspace name
+	local workspace = window:active_workspace()
+
+	-- TRACKING LOGIC FOR "LAST WORKSPACE"
+	if wezterm.GLOBAL.current_workspace ~= workspace then
+		wezterm.GLOBAL.previous_workspace = wezterm.GLOBAL.current_workspace
+		wezterm.GLOBAL.current_workspace = workspace
+	end
+
+	-- Check if Tmux Prefix (Leader) is active
+	local leader_is_active = window:leader_is_active()
+	local prefix_icon = leader_is_active and "  " or "  "
+
+	-- Your Nord Colors
+	local nordBlue = "#80A1C1"
+	local nordDark = "#2e3440"
+
+	-- Set the top-left status to exactly match your old Tmux setup
+	window:set_left_status(wezterm.format({
+		{ Background = { Color = nordBlue } },
+		{ Foreground = { Color = nordDark } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = prefix_icon .. workspace .. " " },
+	}))
+end)
+-- ########## THEME SWITCHER ##########
+local function theme_switcher()
+	return wezterm.action_callback(function(window, pane)
+		-- The list of themes you want to switch between
+		local choices = {
+			{ id = "nordfox", label = " 🦊 nordfox" },
+			{ id = "Black Metal", label = " 🤘 Black Metal" },
+			{ id = "Kanagawa Dragon (Gogh)", label = " 🐲 Kanagawa Dragon (Gogh)" },
+		}
+		window:perform_action(
+			act.InputSelector({
+				action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+					if id then
+						-- Grab the current window's configuration
+						local overrides = inner_window:get_config_overrides() or {}
+						-- Override *only* the color scheme
+						overrides.color_scheme = id
+						-- Apply it instantly
+						inner_window:set_config_overrides(overrides)
+					end
+				end),
+				title = "Select Theme",
+				choices = choices,
+				fuzzy = true,
+			}),
+			pane
+		)
+	end)
+end
+
+-- ########## FONT SWITCHER ##########
+local function font_switcher()
+	return wezterm.action_callback(function(window, pane)
+		-- La tua lista curata di Nerd Fonts
+		local choices = {
+			{ id = "Lilex Nerd Font Mono", label = "  Lilex Nerd Font" },
+			{ id = "JetBrainsMono Nerd Font", label = "  JetBrains Mono" },
+			{ id = "Terminess Nerd Font", label = "  Terminess" },
+			{ id = "BigBlueTerm437 Nerd Font", label = "  BigBlue Term" },
+			-- Puoi aggiungere altri font qui sotto in futuro:
+			-- { id = "FiraCode Nerd Font", label = "  Fira Code" },
+		}
+
+		window:perform_action(
+			act.InputSelector({
+				action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+					if id then
+						-- Recupera gli override attuali (così non perdi il tema se l'hai cambiato!)
+						local overrides = inner_window:get_config_overrides() or {}
+						-- Sovrascrive solo il font
+						overrides.font = wezterm.font(id)
+						-- Applica la modifica all'istante
+						inner_window:set_config_overrides(overrides)
+					end
+				end),
+				title = "Select Font",
+				choices = choices,
+				fuzzy = true,
+			}),
+			pane
+		)
+	end)
+end
 
 -- 1. Catch the custom payload from your fzf script
 wezterm.on("user-var-changed", function(window, pane, name, value)
@@ -52,7 +142,14 @@ config.keys = {
 			command = { args = { "bash", os.getenv("HOME") .. "/dev/scripts/wezterm-sessionizer.sh" } },
 		}),
 	},
+	-- Theme Switcher (Prefix + t)
+	{
+		key = "t",
+		mods = "LEADER",
+		action = theme_switcher(),
+	},
 	-- Map Cmd + Delete to clear the line (sends Ctrl+u)
+	--
 	{
 		key = "Backspace",
 		mods = "SUPER",
@@ -86,7 +183,12 @@ config.keys = {
 	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
 	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-
+	-- Font Switcher (Prefix + f)
+	{
+		key = "f",
+		mods = "LEADER",
+		action = font_switcher(),
+	},
 	-- NAVIGATION: Tabs (Prefix + [ and ])
 	{ key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
 	{ key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
@@ -103,7 +205,19 @@ config.keys = {
 
 	-- SESSION MANAGEMENT
 	-- Previous Workspace (Prefix + p) -> Opens Wezterm's built-in workspace menu to select a running one
-	{ key = "p", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "WORKSPACES" }) },
+	-- Switch to Last Workspace (Tmux: switch-client -l)
+	{
+		key = "p",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(window, pane)
+			local last_workspace = wezterm.GLOBAL.previous_workspace
+
+			-- If a previous workspace exists, and it's not the one we are already in, switch to it!
+			if last_workspace and last_workspace ~= window:active_workspace() then
+				window:perform_action(act.SwitchToWorkspace({ name = last_workspace }), pane)
+			end
+		end),
+	},
 
 	-- Create new workspace from current dir (Prefix + n)
 	{

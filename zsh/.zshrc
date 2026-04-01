@@ -8,9 +8,12 @@ export PATH=$ASPECTJ_HOME/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/aspectj1.9/bin:$PATH"
-export MINTED_PYTHON=/opt/homebrew/bin/python3.12
+export ANTLR4_JAR="$HOME/.local/lib/antlr-runtime-4.13.2.jar"
+export MINTED_PYTHON="/opt/homebrew/bin/python3.12"
 export CLASSPATH=".:$HOME/.local/lib/bcel.jar"
 export CLASSPATH=".:$HOME/aspectj1.9/lib/aspectjrt.jar"
+
+
 # Add all subdirectories of $SCRIPTS to PATH
 if [ -d "$SCRIPTS" ]; then
   for dir in $(find "$SCRIPTS" -type d); do
@@ -85,3 +88,6 @@ eval "$(starship init zsh)"
 # END opam configuration
 
 eval $(thefuck --alias)
+
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}œ' 

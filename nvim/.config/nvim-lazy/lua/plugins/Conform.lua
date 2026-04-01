@@ -6,11 +6,11 @@ return {
         require("conform").setup({
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = { "black" },
+                python = { "ruff" },
                 c = { "clang_format" },
                 cpp = { "clang_format" },
                 h = { "clang_format" },
-                go = { "gofmt" },
+                go = { "gofumpt" },
                 typescript = { "prettier" },
                 javascript = { "prettier" },
                 json = { "prettier" },
@@ -22,6 +22,7 @@ return {
                 tex = { "tex-fmt" },
                 bib = { "bibtex-tidy" },
                 typst = { "typstyle" },
+                rust = { "rustfmt" },
             },
 
             formatters = {

@@ -1,6 +1,5 @@
 -- ########## UI OPTS ##########
 
-vim.cmd.colorscheme("nordfox")
 vim.opt.viewoptions = "folds,cursor"
 vim.g.have_nerd_font = true
 vim.opt.number = true

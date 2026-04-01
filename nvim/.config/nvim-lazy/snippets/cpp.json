@@ -1,0 +1,15 @@
+{
+  "Audio Sample Loop": {
+    "prefix": "bufloop",
+    "body": [
+      "const int numCh = buffer.getNumChannels();",
+      "auto data = buffer.getArrayOfWritePointers();",
+      "for (int s = 0; s < numSamples; ++s) {",
+      "    for (int ch = 0; ch < numCh; ++ch) {",
+      "        ${1}",
+      "    }",
+      "}"
+    ],
+    "description": "Iterate and write sampleValue to all channels"
+  }
+}
