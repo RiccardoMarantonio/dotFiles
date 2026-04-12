@@ -16,7 +16,6 @@ vim.opt.cmdheight = 1
 vim.opt.list = false
 vim.opt.viewoptions = "folds,cursor"
 vim.diagnostic.config({ virtual_text = true, underline = true, float = { border = "rounded" } })
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -33,6 +32,19 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.confirm = true
 
+require("vim._core.ui2").enable({})
+
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+]])
+
+vim.cmd([[
+  highlight NormalFloat guibg=NONE
+  highlight FloatBorder guibg=NONE
+]])
+
 vim.diagnostic.config({
     virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
     underline = true,
@@ -45,10 +57,11 @@ vim.diagnostic.config({
 -- ##################
 vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter.git",
+    "https://github.com/nvim-mini/mini.icons",
+    "https://github.com/nvim-mini/mini.pick",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/mbbill/undotree",
     "https://github.com/lewis6991/gitsigns.nvim.git",
-    "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/saghen/blink.cmp.git",
     "https://github.com/lukas-reineke/indent-blankline.nvim",
     "https://github.com/supermaven-inc/supermaven-nvim",
@@ -56,6 +69,9 @@ vim.pack.add({
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/mfussenegger/nvim-jdtls",
 })
+
+require("mini.icons").setup({})
+require("mini.pick").setup({})
 
 require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("data") .. "/site",
@@ -100,8 +116,13 @@ require("snacks").setup({
     picker = {
         enabled = true,
     },
-    notifier = { enabled = true },
+    -- notifier = { enabled = true },
 })
+
+vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Text" })
+vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { link = "Text" })
+vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { link = "Comment" })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "Special" })
 
 -- ##################
 -- #                #
