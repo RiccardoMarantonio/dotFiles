@@ -90,4 +90,7 @@ eval "$(starship init zsh)"
 eval $(thefuck --alias)
 
 # Auto-Warpify
-[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}œ' 
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}ï¿½' 
+
+# Added by Antigravity
+export PATH="/Users/riccardomarantonio/.antigravity/antigravity/bin:$PATH"

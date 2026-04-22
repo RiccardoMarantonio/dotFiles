@@ -3,6 +3,8 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
+# background = #14161B
+
 font-family = JetBrainsMono
 font-size=15
 
@@ -11,7 +13,7 @@ keybind = super+w=text:\x13w
 
 adjust-cell-height=25%
 
-#background-opacity = 0.80
+#background-opacity = 0.95
 #background-blur=true
 
 title = ""

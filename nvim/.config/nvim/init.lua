@@ -1,3 +1,5 @@
+vim.cmd("colorscheme habamax")
+vim.opt.autoread = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.have_nerd_font = true
@@ -31,53 +33,67 @@ vim.opt.smartcase = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.confirm = true
-
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 require("vim._core.ui2").enable({})
 
-vim.cmd([[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight NormalNC guibg=NONE ctermbg=NONE
-  highlight EndOfBuffer guibg=NONE ctermbg=NONE
-]])
-
-vim.cmd([[
-  highlight NormalFloat guibg=NONE
-  highlight FloatBorder guibg=NONE
-]])
+-- vim.cmd([[
+--   highlight Normal guibg=NONE ctermbg=NONE
+--   highlight NormalNC guibg=NONE ctermbg=NONE
+--   highlight EndOfBuffer guibg=NONE ctermbg=NONE
+-- ]])
+--
 
 vim.diagnostic.config({
     virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
     underline = true,
     float = { border = "rounded" },
 })
+
 -- ##################
 -- #                #
 -- #     PLUGINS    #
 -- #                #
 -- ##################
+
 vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter.git",
-    "https://github.com/nvim-mini/mini.icons",
-    "https://github.com/nvim-mini/mini.pick",
     "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/mbbill/undotree",
-    "https://github.com/lewis6991/gitsigns.nvim.git",
     "https://github.com/saghen/blink.cmp.git",
-    "https://github.com/lukas-reineke/indent-blankline.nvim",
-    "https://github.com/supermaven-inc/supermaven-nvim",
     "https://github.com/folke/snacks.nvim.git",
     "https://github.com/mason-org/mason.nvim",
+    "https://github.com/supermaven-inc/supermaven-nvim",
+    "https://github.com/mbbill/undotree",
+    "https://github.com/lewis6991/gitsigns.nvim.git",
+    "https://github.com/nvim-mini/mini.icons",
     "https://github.com/mfussenegger/nvim-jdtls",
+    "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/lukas-reineke/indent-blankline.nvim",
 })
 
 require("mini.icons").setup({})
-require("mini.pick").setup({})
 
 require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("data") .. "/site",
 })
 
 require("blink.cmp").setup({
+    sources = {
+        default = { "lsp", "path", "buffer", "snippets" },
+        providers = {
+            snippets = {
+                opts = {
+                    friendly_snippets = true, -- default
+                    extended_filetypes = {
+                        markdown = { "jekyll" },
+                        sh = { "shelldoc" },
+                        php = { "phpdoc" },
+                        cpp = { "unreal" },
+                    },
+                },
+            },
+        },
+    },
     keymap = {
         preset = "default",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -88,7 +104,6 @@ require("blink.cmp").setup({
         list = { selection = { preselect = true, auto_insert = false } },
         documentation = { auto_show = true },
     },
-    sources = { default = { "lsp", "path", "buffer" } },
     fuzzy = { implementation = "prefer_rust_with_warning" },
 })
 
@@ -130,24 +145,22 @@ vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "Special" })
 -- #                #
 -- ##################
 
-vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Move to window above" })
-vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Move to window below" })
-vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Move to window left" })
-vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Move to window right" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "[q", "<cmd>cp<CR>zz", { desc = "Previous Item in quickfix List" })
 vim.keymap.set("n", "]q", "<cmd>cn<CR>zz", { desc = "Next Item in quickfix List" })
+
 vim.keymap.set(
     "n",
     "<leader>qe",
     ":lua vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })<CR>:copen<CR>",
     { desc = "Quickfix list for errors" }
 )
-vim.keymap.set("n", "<leader>cp", "<CMD>AIToggle<CR>", { desc = "Toggle Supermaven" })
+
 vim.keymap.set("n", "U", vim.cmd.UndotreeToggle, { desc = "Toggle UndoTree" })
+
 vim.keymap.set("n", "<leader>e", function()
     require("snacks").explorer()
 end, { desc = "File Explorer" })
@@ -260,17 +273,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- #                   #
 -- #####################
 
-vim.api.nvim_create_user_command("AIToggle", function()
-    InlineCompletionEnabled = not InlineCompletionEnabled
-    if InlineCompletionEnabled ~= true then
-        vim.cmd("SupermavenStop")
-        vim.notify("Inline Completion Disabled", vim.log.levels.INFO, { title = "System" })
-    else
-        vim.cmd("SupermavenStart")
-        vim.notify("Inline Completion Enabled", vim.log.levels.INFO, { title = "System" })
-    end
-end, {})
-
 local isLspWarningVisible = false
 vim.api.nvim_create_user_command("ToggleLSPWarnings", function()
     isLspWarningVisible = not isLspWarningVisible
@@ -301,3 +303,13 @@ end, {})
 vim.api.nvim_create_user_command("QA", function()
     vim.cmd("qa")
 end, {})
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    callback = function()
+        if vim.fn.mode() ~= "c" then
+            vim.cmd("checktime")
+        end
+    end,
+})
+
+vim.opt.shortmess:append("F")
