@@ -94,3 +94,8 @@ eval $(thefuck --alias)
 
 # Added by Antigravity
 export PATH="/Users/riccardomarantonio/.antigravity/antigravity/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/riccardomarantonio/.lmstudio/bin"
+# End of LM Studio CLI section
+

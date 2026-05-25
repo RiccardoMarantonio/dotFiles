@@ -36,6 +36,22 @@
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter.git"
     },
+    "nvim-web-devicons": {
+      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons.git"
+    },
+    "octo.nvim": {
+      "rev": "34e67cc2d247e9b9271e2b54baeb6d4f6d1035bb",
+      "src": "https://github.com/pwntester/octo.nvim.git"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim.git"
+    },
+    "quicker.nvim": {
+      "rev": "063cc44da1eef8681bbd653b29d3bc961780886a",
+      "src": "https://github.com/stevearc/quicker.nvim"
+    },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim.git"
@@ -47,6 +63,10 @@
     "undotree": {
       "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
       "src": "https://github.com/mbbill/undotree"
+    },
+    "zdiff.nvim": {
+      "rev": "3af2b8ad102e6905b5b38c60115a66696b2ffda4",
+      "src": "https://github.com/martindur/zdiff.nvim"
     }
   }
 }

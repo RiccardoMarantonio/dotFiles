@@ -69,3 +69,8 @@ set -g fish_cursor_insert      line       blink
 set -g fish_cursor_replace_one underscore blink
 set -g fish_cursor_visual      block
 
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/riccardomarantonio/.lmstudio/bin
+# End of LM Studio CLI section
+

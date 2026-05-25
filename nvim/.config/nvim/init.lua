@@ -1,4 +1,3 @@
-vim.cmd("colorscheme habamax")
 vim.opt.autoread = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -33,16 +32,10 @@ vim.opt.smartcase = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.confirm = true
+vim.opt.termguicolors = true
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 require("vim._core.ui2").enable({})
-
--- vim.cmd([[
---   highlight Normal guibg=NONE ctermbg=NONE
---   highlight NormalNC guibg=NONE ctermbg=NONE
---   highlight EndOfBuffer guibg=NONE ctermbg=NONE
--- ]])
---
 
 vim.diagnostic.config({
     virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
@@ -51,11 +44,10 @@ vim.diagnostic.config({
 })
 
 -- ##################
--- #                #
 -- #     PLUGINS    #
--- #                #
 -- ##################
 
+-- Add all plugins first
 vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter.git",
     "https://github.com/neovim/nvim-lspconfig",
@@ -65,84 +57,61 @@ vim.pack.add({
     "https://github.com/supermaven-inc/supermaven-nvim",
     "https://github.com/mbbill/undotree",
     "https://github.com/lewis6991/gitsigns.nvim.git",
-    "https://github.com/nvim-mini/mini.icons",
+    "https://github.com/nvim-tree/nvim-web-devicons.git",
     "https://github.com/mfussenegger/nvim-jdtls",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/lukas-reineke/indent-blankline.nvim",
+    "https://github.com/nvim-lua/plenary.nvim.git",
+    "https://github.com/pwntester/octo.nvim.git",
+    "https://github.com/martindur/zdiff.nvim",
 })
 
-require("mini.icons").setup({})
+require("zdiff").setup({
+    -- Whether files are expanded by default
+    default_expanded = true,
 
-require("nvim-treesitter").setup({
-    install_dir = vim.fn.stdpath("data") .. "/site",
-})
+    -- Default branch for toggle_mode (m key)
+    default_branch = "main",
 
-require("blink.cmp").setup({
-    sources = {
-        default = { "lsp", "path", "buffer", "snippets" },
-        providers = {
-            snippets = {
-                opts = {
-                    friendly_snippets = true, -- default
-                    extended_filetypes = {
-                        markdown = { "jekyll" },
-                        sh = { "shelldoc" },
-                        php = { "phpdoc" },
-                        cpp = { "unreal" },
-                    },
-                },
-            },
-        },
+    -- Keymap bindings (defaults)
+    keymaps = {
+        goto_file = "<CR>",
+        toggle = "<Tab>",
+        close = "q",
+        refresh = "R",
+        toggle_mode = "m",
+        help = "?",
+        yank_ref = "gy",
     },
-    keymap = {
-        preset = "default",
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<CR>"] = { "accept", "fallback" },
+
+    -- Icons for UI elements
+    icons = {
+        collapsed = "",
+        expanded = "",
+        added = "+",
+        deleted = "-",
+        modified = "~",
     },
-    signature = { enabled = true },
-    completion = {
-        list = { selection = { preselect = true, auto_insert = false } },
-        documentation = { auto_show = true },
+
+    -- Syntax highlighting strategy
+    syntax = {
+        -- "projection" parses old/new full-file snapshots and projects
+        -- captures onto unified diff lines. "hunk" keeps legacy behavior.
+        mode = "projection",
+        -- Skip projection when either old/new source exceeds this many lines.
+        -- 0 means unlimited.
+        max_lines = 8000,
     },
-    fuzzy = { implementation = "prefer_rust_with_warning" },
 })
 
-require("ibl").setup({
-    indent = { char = "│" },
-    scope = { enabled = true, show_start = true },
-})
-
-require("mason").setup({})
-local registry = require("mason-registry")
-registry.refresh()
-local lsp_exclude = { "jdtls" }
-for _, pkg in ipairs(registry.get_installed_packages()) do
-    local lsp_name = vim.tbl_get(pkg.spec, "neovim", "lspconfig")
-    if lsp_name and not vim.tbl_contains(lsp_exclude, lsp_name) then
-        vim.lsp.enable(lsp_name)
-    end
+-- Now load plugin configurations
+local plugins_dir = vim.fn.stdpath("config") .. "/plugins"
+for _, file in ipairs(vim.fn.glob(plugins_dir .. "/*.lua", true, true)) do
+    dofile(file)
 end
 
-require("supermaven-nvim").setup({})
-InlineCompletionEnabled = false
-vim.cmd("SupermavenStop")
-
-require("snacks").setup({
-    picker = {
-        enabled = true,
-    },
-    -- notifier = { enabled = true },
-})
-
-vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "Text" })
-vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { link = "Text" })
-vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { link = "Comment" })
-vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "Special" })
-
 -- ##################
--- #                #
 -- #   KEYMAPPINGS  #
--- #                #
 -- ##################
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
@@ -151,7 +120,6 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highl
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "[q", "<cmd>cp<CR>zz", { desc = "Previous Item in quickfix List" })
 vim.keymap.set("n", "]q", "<cmd>cn<CR>zz", { desc = "Next Item in quickfix List" })
-
 vim.keymap.set(
     "n",
     "<leader>qe",
@@ -159,77 +127,9 @@ vim.keymap.set(
     { desc = "Quickfix list for errors" }
 )
 
-vim.keymap.set("n", "U", vim.cmd.UndotreeToggle, { desc = "Toggle UndoTree" })
-
-vim.keymap.set("n", "<leader>e", function()
-    require("snacks").explorer()
-end, { desc = "File Explorer" })
-vim.keymap.set("n", "<leader>fs", function()
-    require("snacks").picker.lsp_symbols()
-end, { desc = "LSP Symbols" })
-vim.keymap.set("n", "<leader>ff", function()
-    require("snacks").picker.files({
-        show_empty = true,
-        hidden = true,
-        ignored = true,
-        follow = true,
-        supports_live = true,
-    })
-end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fr", function()
-    require("snacks").picker.recent()
-end, { desc = "Recent" })
-vim.keymap.set("n", "<leader>n", function()
-    require("snacks").notifier.show_history()
-end, { desc = "Notification History" })
-vim.keymap.set("n", "<leader>sc", function()
-    require("snacks").picker.commands()
-end, { desc = "Commands" })
-vim.keymap.set("n", "<leader>sk", function()
-    require("snacks").picker.keymaps()
-end, { desc = "Keymaps" })
-vim.keymap.set("n", "<leader>sd", function()
-    require("snacks").picker.diagnostics()
-end, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>gg", function()
-    require("snacks").picker.grep()
-end, { desc = "Grep" })
-vim.keymap.set("n", "<leader>gd", function()
-    require("snacks").picker.git_diff()
-end, { desc = "Picker Git Diff" })
-vim.keymap.set("n", "<leader>tt", function()
-    require("snacks").picker.todo_comments()
-end, { desc = "TODO Comments" })
-vim.keymap.set("n", "<leader><leader>", function()
-    require("snacks").picker.files({ layout = "select" })
-end, { desc = "Find files (select layout)" })
-
 -- ##################
--- #                #
 -- #    AUTOCMDS    #
--- #                #
 -- ##################
-
-local lsp_augroup = vim.api.nvim_create_augroup("my.lsp", { clear = true })
-
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = lsp_augroup,
-    callback = function(args)
-        local bufnr = args.buf
-        local map = function(mode, keys, cmd, desc)
-            vim.keymap.set(mode, keys, cmd, { desc = desc, buffer = bufnr })
-        end
-
-        map("n", "<leader>a", vim.lsp.buf.code_action, "Code Action")
-        map("n", "<leader>d", vim.diagnostic.open_float, "Line Diagnostics")
-        map("n", "]d", function()
-            vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
-        end, "Next Error")
-        map("n", "[d", function()
-            vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
-        end, "Previous Error")
-    end,
-})
 
 vim.api.nvim_create_autocmd("BufWinLeave", {
     callback = function()
@@ -249,16 +149,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = bufnr,
-    callback = function()
-        vim.lsp.buf.format({
-            bufnr = bufnr,
-            timeout_ms = 500,
-        })
-    end,
-})
-
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
     group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
@@ -267,10 +157,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    callback = function()
+        if vim.fn.mode() ~= "c" then
+            vim.cmd("checktime")
+        end
+    end,
+})
+
+vim.opt.shortmess:append("F")
+
 -- #####################
--- #                   #
 -- #  CUSTOM COMMANDS  #
--- #                   #
 -- #####################
 
 local isLspWarningVisible = false
@@ -304,12 +202,32 @@ vim.api.nvim_create_user_command("QA", function()
     vim.cmd("qa")
 end, {})
 
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+-- Listen for changes to the 'background' option
+vim.api.nvim_create_autocmd("OptionSet", {
+    pattern = "background",
     callback = function()
-        if vim.fn.mode() ~= "c" then
-            vim.cmd("checktime")
+        if vim.o.background == "dark" then
+            -- Set your dark colorscheme here
+            vim.cmd("colorscheme habamax")
+            vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
+            vim.cmd([[
+            highlight Normal guibg=NONE ctermbg=NONE
+            highlight NormalNC guibg=NONE ctermbg=NONE
+            highlight EndOfBuffer guibg=NONE ctermbg=NONE
+            ]])
+        else
+            -- Set your light colorscheme here
+            vim.cmd("colorscheme shine")
+            vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
+            vim.cmd([[
+            highlight Normal guibg=NONE ctermbg=NONE
+            highlight NormalNC guibg=NONE ctermbg=NONE
+            highlight EndOfBuffer guibg=NONE ctermbg=NONE
+            ]])
         end
     end,
 })
-
-vim.opt.shortmess:append("F")

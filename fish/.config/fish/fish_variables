@@ -1,4 +1,4 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/Users/riccardomarantonio/dev/scripts/bin\x1e/Users/riccardomarantonio/aspectj1\x2e9/bin\x1e/Users/riccardomarantonio/\x2eopencode/bin\x1e/Users/riccardomarantonio/\x2ebun/bin\x1e/Users/riccardomarantonio/\x2elocal/bin\x1e/opt/homebrew/opt/openjdk\x4021/libexec/openjdk\x2ejdk/Contents/Home/bin\x1e/opt/homebrew/sbin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/opt/homebrew/opt/llvm/bin\x1e/Users/riccardomarantonio/dev/scripts/bin\x1e/Users/riccardomarantonio/aspectj1\x2e9/bin\x1e/Users/riccardomarantonio/\x2eopencode/bin\x1e/Users/riccardomarantonio/\x2ebun/bin\x1e/Users/riccardomarantonio/\x2elocal/bin\x1e/opt/homebrew/opt/openjdk\x4021/libexec/openjdk\x2ejdk/Contents/Home/bin\x1e/opt/homebrew/sbin\x1e/opt/homebrew/bin
