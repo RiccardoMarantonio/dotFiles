@@ -63,46 +63,13 @@ vim.pack.add({
     "https://github.com/lukas-reineke/indent-blankline.nvim",
     "https://github.com/nvim-lua/plenary.nvim.git",
     "https://github.com/pwntester/octo.nvim.git",
-    "https://github.com/martindur/zdiff.nvim",
+    "https://github.com/navarasu/onedark.nvim",
 })
 
-require("zdiff").setup({
-    -- Whether files are expanded by default
-    default_expanded = true,
-
-    -- Default branch for toggle_mode (m key)
-    default_branch = "main",
-
-    -- Keymap bindings (defaults)
-    keymaps = {
-        goto_file = "<CR>",
-        toggle = "<Tab>",
-        close = "q",
-        refresh = "R",
-        toggle_mode = "m",
-        help = "?",
-        yank_ref = "gy",
-    },
-
-    -- Icons for UI elements
-    icons = {
-        collapsed = "",
-        expanded = "",
-        added = "+",
-        deleted = "-",
-        modified = "~",
-    },
-
-    -- Syntax highlighting strategy
-    syntax = {
-        -- "projection" parses old/new full-file snapshots and projects
-        -- captures onto unified diff lines. "hunk" keeps legacy behavior.
-        mode = "projection",
-        -- Skip projection when either old/new source exceeds this many lines.
-        -- 0 means unlimited.
-        max_lines = 8000,
-    },
+require("onedark").setup({
+    style = "dark",
 })
+require("onedark").load()
 
 -- Now load plugin configurations
 local plugins_dir = vim.fn.stdpath("config") .. "/plugins"
@@ -208,18 +175,18 @@ vim.api.nvim_create_autocmd("OptionSet", {
     callback = function()
         if vim.o.background == "dark" then
             -- Set your dark colorscheme here
-            vim.cmd("colorscheme habamax")
-            vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
-            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-
-            vim.cmd([[
-            highlight Normal guibg=NONE ctermbg=NONE
-            highlight NormalNC guibg=NONE ctermbg=NONE
-            highlight EndOfBuffer guibg=NONE ctermbg=NONE
-            ]])
+            vim.cmd("colorscheme onedark")
+            -- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+            -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+            --
+            -- vim.cmd([[
+            -- highlight Normal guibg=NONE ctermbg=NONE
+            -- highlight NormalNC guibg=NONE ctermbg=NONE
+            -- highlight EndOfBuffer guibg=NONE ctermbg=NONE
+            -- ]])
         else
             -- Set your light colorscheme here
-            vim.cmd("colorscheme shine")
+            vim.cmd("colorscheme lunaperche")
             vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
             vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 
