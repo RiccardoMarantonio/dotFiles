@@ -1,1 +1,0 @@
--- nvim-jdtls: configured separately per project

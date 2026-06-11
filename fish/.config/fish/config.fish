@@ -74,3 +74,5 @@ set -g fish_cursor_visual      block
 set -gx PATH $PATH /Users/riccardomarantonio/.lmstudio/bin
 # End of LM Studio CLI section
 
+
+zoxide init fish | source

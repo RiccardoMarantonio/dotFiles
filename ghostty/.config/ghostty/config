@@ -1,4 +1,4 @@
-theme = light:Aizen Light, dark:Atom One Dark
+theme = light:Aizen Light, dark:One Double Dark
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor

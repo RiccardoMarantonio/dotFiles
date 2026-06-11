@@ -58,11 +58,8 @@ vim.pack.add({
     "https://github.com/mbbill/undotree",
     "https://github.com/lewis6991/gitsigns.nvim.git",
     "https://github.com/nvim-tree/nvim-web-devicons.git",
-    "https://github.com/mfussenegger/nvim-jdtls",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/lukas-reineke/indent-blankline.nvim",
-    "https://github.com/nvim-lua/plenary.nvim.git",
-    "https://github.com/pwntester/octo.nvim.git",
     "https://github.com/navarasu/onedark.nvim",
 })
 
@@ -129,6 +126,13 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
         if vim.fn.mode() ~= "c" then
             vim.cmd("checktime")
         end
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Enable treesitter highlighting",
+    callback = function()
+        pcall(vim.treesitter.start)
     end,
 })
 
